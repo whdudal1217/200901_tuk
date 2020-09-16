@@ -6,21 +6,43 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
+
 function validateCheck(){
-	if(document.loginForm.id.value==null){
+	if(document.loginForm.id.value==""){
 		alert(" id를 입력해주세요");
-		document.memberForm.id.focus();
-		retrun false;
+		document.loginForm.id.focus();
+		return false;
 	}
-	if(document.loginForm.pwd.value==null){
+	if(document.loginForm.pwd.value==""){
 		alert(" pwd를 입력해주세요");
-		document.memberForm.pwd.focus();
-		retrun false;
+		document.loginForm.pwd.focus();
+		return false;
 	}
+	
+}
+//선생님 방법
+function validate(){
+	if(document.loginForm.id.value=="" && document.loginForm.id.value == null){
+		alert(" id를 입력해주세요");
+		document.loginForm.id.focus();
+		return false;
+	}
+	if(document.loginForm.pwd.value==""){
+		alert(" pwd를 입력해주세요");
+		document.loginForm.pwd.focus();
+		return false;
+	}
+	return true
+}
+function login(){
+	validate();
+	frm.action="loginCk.jsp"
+	frm.submit
+}
 </script>
 </head>
 <body>
-		<form action="loginCk.jsp" method="post" name="loginForm" onsubmit="return validateCheck">
+		<form action="loginCk.jsp" method="post" onsubmit="return validateCheck()" name="loginForm">
 				<table>
 					<tr>
 						<th colspan="2">로그인</th>
@@ -34,7 +56,7 @@ function validateCheck(){
 						<td><input type="password" name="pwd"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" value="로그인"></td>
+						<td colspan="2"><input type="submit" value="로그인" onclick=""></td>
 					</tr>
 				</table>
 			</form>

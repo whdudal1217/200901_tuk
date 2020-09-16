@@ -11,6 +11,7 @@
 </head>
 <body>
 	<%
+	request.setCharacterEncoding("utf-8"); //이거 지정해주지 않으면 받을 때 한글이 깨져서 나옴
 	String id = request.getParameter("member_id");
 	String name = request.getParameter("member_name");
 	String tel = request.getParameter("member_tel");

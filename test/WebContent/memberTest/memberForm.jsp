@@ -7,44 +7,47 @@
 <title>Insert title here</title>
 <script type="text/javascript">
 function validateCheck(){
-	if(!document.memberForm.member_id.value){
+	var mf = document.memberForm;
+	if(mf.member_id.value==""){
 		alert(" id를 입력해주세요");
 		document.memberForm.member_id.focus();
-		retrun false;
-	}
-	if(!document.memberForm.member_name.value){
-		alert(" 이름을 입력해주세요");
-		document.memberForm.member_id.focus();
-		retrun false;
-	}
-	if(!document.memberForm.member_pwd.value){
-		alert(" 비밀번호를 입력해주세요");
-		document.memberForm.member_id.focus();
-		retrun false;
-	}else if(document.memberForm.member_pwd.value != document.memberForm.member_pwdCk.value){
-		alert(" 비밀번호와 비밀번호체크의 값이 같지 않습니다");
 		return false;
 	}
-	if(!document.memberForm.member_tel.value){
+	if(mf.member_name.value==""){
+		alert(" 이름을 입력해주세요");
+		document.memberForm.member_name.focus();
+		return false;
+	}
+	if(mf.member_pwd.value==""){
+		alert(" 비밀번호를 입력해주세요");
+		document.memberForm.member_pwd.focus();
+		return false;
+	}else if(mf.member_pwd.value != mf.member_pwdCk.value){
+		alert(" 비밀번호와 비밀번호체크의 값이 같지 않습니다");
+		document.memberForm.member_pwdCk.focus();
+		return false;
+	}
+	if(mf.member_tel.value==""){
 		alert(" 전화번호를 입력해주세요");
-		document.memberForm.member_id.focus();
-		retrun false;
+		document.memberForm.member_tel.focus();
+		return false;
 	}
-	if(!document.memberForm.member_id.value){
+	if(mf.member_email.value==""){
 		alert(" 이메일을 입력해주세요");
-		document.memberForm.member_id.focus();
-		retrun false;
+		document.memberForm.member_email.focus();
+		return false;
 	}
-	if(!document.memberForm.member_id.value){
+	if(mf.member_add.value==""){
 		alert(" 주소를 입력해주세요");
-		document.memberForm.member_id.focus();
-		retrun false;
+		document.memberForm.member_add.focus();
+		return false;
 	}
+	return true;
 }
 </script>
 <body>
 	<form action="memberView.jsp" method="post"
-		onsubmit="return validateCheck()" id="memberForm">
+		onsubmit="return validateCheck()" name="memberForm">
 		<table>
 			<tr>
 				<th colspan="2">회원가입</th>
