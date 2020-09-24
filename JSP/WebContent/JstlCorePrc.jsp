@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-10 + 1 = ${ "10" + 1 } <br/>
-null + 1 = ${null + 1} <br/>
-3 / 2 = ${3/2 }<br/>
-3 div 2 = ${3 % 2 }<br/>
-문자 + 열 = ${"문자" += "열"}<br/>
-JAVA + Programming = ${"JAVA"}${"Programming"}
+<c:set var="name" value="홍길동" />
+<c:set var="age">20</c:set>
+이름 : ${name}<br />
+나이 : ${age}<br />
 </body>
 </html>
