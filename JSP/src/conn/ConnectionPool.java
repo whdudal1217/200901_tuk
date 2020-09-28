@@ -56,6 +56,7 @@ public class ConnectionPool {
 		System.out.println("pool size : " + pool.size());
 		return conn;
 	}
+	
 	public synchronized void releaseConnection(Connection conn) {
 		pool.add(conn);
 		System.out.println("pool size : " + pool.size());
