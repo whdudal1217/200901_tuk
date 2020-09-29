@@ -30,20 +30,17 @@
 	<table width="100%" height="100%" border="1">
 		<tr>
 			<td>아이디</td>
-			<td><%= rs.getString("MEM_ID") %></td>
-		</tr>
-		<tr>
 			<td>비밀번호</td>
-			<td><%= rs.getString("MEM_PWD") %></td>
-		</tr>
-		<tr>
 			<td>이름</td>
-			<td><%= rs.getString("MEM_NAME") %></td>
+			<td>이메일</td>
 		</tr>
 		<tr>
-			<td>이메일</td>
+			<td><%= rs.getString("MEM_ID") %></td>
+			<td><%= rs.getString("MEM_PWD") %></td>
+			<td><%= rs.getString("MEM_NAME") %></td>
 			<td><%= rs.getString("MEM_EMAIL") %></td>
 		</tr>
+	
 	</table>
 	<%
 				}

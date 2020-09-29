@@ -13,11 +13,37 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
-	<servlet>
+	<!-- <servlet>
 		<servlet-name>DBCPInit</servlet-name>
 		<servlet-class>jdbc.Init</servlet-class>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> -->
+
+	<servlet>
+      <servlet-name>DBCPInit</servlet-name>
+      <servlet-class>jdbc.DBCPInit</servlet-class>
+      <init-param>
+         <param-name>jdbcdriver</param-name>
+         <param-value>com.mysql.cj.jdbc.Driver</param-value>
+      </init-param>
+      <init-param>
+         <param-name>jdbcUrl</param-name>
+         <param-value>jdbc:mysql://localhost:3306/jdbc_ex?serverTimezone=UTC&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true</param-value>
+      </init-param>
+      <init-param>
+         <param-name>dbUser</param-name>
+         <param-value>root</param-value>
+      </init-param>
+      <init-param>
+      <param-name>dbPass</param-name>
+      <param-value>0_0MI1217</param-value>
+      </init-param>
+      <init-param>
+      <param-name>poolName</param-name>
+      <param-value>DBConn</param-value>
+      </init-param>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
 
 	<servlet>
 		<servlet-name>now</servlet-name>
@@ -26,7 +52,33 @@
 
 	<servlet-mapping>
 		<servlet-name>now</servlet-name>
-		<url-pattern>/now</url-pattern>
+		<url-pattern>/now.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SimpleController</servlet-name>
+		<servlet-class>mvc.simple.SimpleController</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>SimpleController</servlet-name>
+		<url-pattern>/simple</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 커맨드라인으로  -->
+	<servlet>
+      <servlet-name>ControllerUsingFile</servlet-name>
+      <servlet-class>mvc.controller.ControllerUsingFile</servlet-class>
+      <init-param>
+         <param-name>configFile</param-name>
+         <param-value>/WEB-INF/commandHandler.properties</param-value>
+      </init-param>
+     </servlet>
+     
+	<servlet-mapping>
+		<servlet-name>ControllerUsingFile</servlet-name>
+		<url-pattern>/controllerusingfile</url-pattern>
+	</servlet-mapping>
+	
+		
 </web-app>
