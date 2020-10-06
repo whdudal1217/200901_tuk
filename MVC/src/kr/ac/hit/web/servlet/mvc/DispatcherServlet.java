@@ -38,20 +38,21 @@ public class DispatcherServlet extends HttpServlet{
 		
 		String uri = req.getRequestURI(); //사용자가 요청한 유알아이
 		System.out.println("-*-*-*- URI 확인 -*-*-*-");
-		System.out.println(uri);
+		System.out.println(uri);// 컨텍스트루트/member/add.do
 		
 		if(uri.indexOf(req.getContextPath()) == 0) {
 			//localhost:8080/rootcontext/member/add.do
-			uri = uri.substring(req.getContextPath().length()); //루트컨텍스트 앞에 다 자르고 뒤에 오는 진짜 요청 /member/add.do같은 것만 잘라낼 예정
+			uri = uri.substring(req.getContextPath().length()); 
+			//루트컨텍스트 앞에 다 자르고 뒤에 오는 진짜 요청 /member/add.do같은 것만 잘라낼 예정
 		}
 		System.out.println(uri); //확인
 		
 		Controller controller = UrlHandlerMapping.getHandler(uri);
+		
 		if(controller != null) {
 			String viewPage = null;
-			
 			try {
-				viewPage = controller.process(req, resp);
+				viewPage = controller.process(req, resp); //오버라이드 된 자식의 프로세스를 실행, viewPage = memberList.jsp
 			} catch (Exception e) {
 				e.printStackTrace();
 				throw new ServletException();

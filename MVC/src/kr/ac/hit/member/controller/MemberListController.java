@@ -1,6 +1,8 @@
 package kr.ac.hit.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,10 +15,24 @@ public class MemberListController implements Controller {
 
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		MemberServiceImple memberServiceImple = MemberServiceImple.getInstance();
-		List<Member> memList = memberServiceImple.getMemberList();
-		//이러고 돌려줄 jsp랑 memList map에 담아서 돌려주면 됨~!ㄴ 난 배가 너무 고픔
-		return null;
+		//서비스에서 회원정보 목록 받아오기
+		MemberServiceImple memberServiceImple = MemberServiceImple.getInstance();		
+		
+		String searchType = req.getParameter("searchType");
+		String searchWord = req.getParameter("searchWord");
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		
+		if(searchWord != null && searchType != null) {
+			paramMap.put("searchType", searchType);
+			paramMap.put("searchWord", searchWord);			
+		}
+		
+		List<Member> memList = memberServiceImple.getMemberList(paramMap);
+
+		req.setAttribute("memberList", memList);
+		String viewPage = "/member/memberList.jsp";
+		return viewPage;
 	}
 
 }

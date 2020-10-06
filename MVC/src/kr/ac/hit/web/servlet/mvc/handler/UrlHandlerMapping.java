@@ -20,17 +20,19 @@ public class UrlHandlerMapping {
 		prop.load(new FileReader(configFiltPath));
 		
 		Iterator keyIter = prop.keySet().iterator();
+		
 		while (keyIter.hasNext()) {
-			String uri = (String) keyIter.next();
-			String handlerClassName = prop.getProperty(uri);
+			String uri = (String) keyIter.next();//uri = member/memberList.do
+			String handlerClassName = prop.getProperty(uri); //handlerClassName = kr.ac.hit.member.controller.MemberListController
 			Class handlerClass = Class.forName(handlerClassName);
-			Controller handler = (Controller) handlerClass.newInstance();
-			handlerMap.put(uri, handler);
+			Controller handler = (Controller) handlerClass.newInstance(); //업캐스팅
+			handlerMap.put(uri, handler);//member/memberList.do, MemberListController
 		}
 	}
 
 	public static Controller getHandler(String uri) {
-		return handlerMap.get(uri);
+		return handlerMap.get(uri); //맵객체는 키값으로 밸류를 가져올 수 있음
+		//member/memberList.do의 값 (controller)kr.ac.hit.member.controller.MemberListController를 가져옴
 	}
 	
 }
