@@ -63,4 +63,58 @@ public class MemberServiceImple implements MemberService {
 		return member;
 	}
 
+	@Override
+	public int insertMember(Member member) throws Exception {
+		
+		Connection conn = null;
+		int updCnt = 0;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			updCnt = memberDao.insertMember(conn, member);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			conn.close();
+		}
+		return updCnt;
+	}
+
+	@Override
+	public int updateMember(Member member) throws Exception {
+		Connection conn = null;
+		int updCnt = 0;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			updCnt = memberDao.updateMember(conn, member);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			conn.close();
+		}
+		return updCnt;
+	}
+
+	@Override
+	public int deleteMember(String seqNo) throws Exception {
+		Connection conn = null;
+		int updCnt = 0;
+		
+		try {
+			conn = ConnectionProvider.getConnection();
+			updCnt = memberDao.deleteMember(conn, seqNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			conn.close();
+		}
+		return updCnt;
+	}
+	
+	
+
 }

@@ -58,8 +58,8 @@ public class DispatcherServlet extends HttpServlet{
 				throw new ServletException();
 			}
 			if(viewPage != null) {
-				if(viewPage.startsWith("redirect:")){
-					viewPage = viewPage.substring("redirect:".length());
+				if(viewPage.startsWith("redirect:")){ //redirect:memberList.jsp 
+					viewPage = viewPage.substring("redirect:".length()); //memberList.jsp
 					resp.sendRedirect( req.getContextPath() + viewPage); //풀경로 + 뷰페이지
 				}else {
 					RequestDispatcher dispatcher = req.getRequestDispatcher(viewPage);

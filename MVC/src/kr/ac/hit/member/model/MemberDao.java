@@ -3,6 +3,7 @@ package kr.ac.hit.member.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -151,6 +152,97 @@ public class MemberDao {
 			throw e;
 		}	
 		return member;
+	}
+	
+	public int insertMember(Connection conn, Member member) throws Exception {
+		
+		StringBuffer query = new StringBuffer();
+		query.append(" INSERT INTO tb_member ") ;
+		query.append(" (MEM_ID,           ") ;
+		query.append(" MEM_PWD,           ") ;
+		query.append(" MEM_NAME,          ") ;
+		query.append(" MEM_PHONE,         ") ;
+		query.append(" MEM_EMAIL,         ") ;
+		query.append(" MEM_BIRTH,         ") ;
+		query.append(" MEM_ZIPCODE,       ") ;
+		query.append(" MEM_ADDR_MASTER,   ") ;
+		query.append(" MEM_ADDR_DETAIL,   ") ;
+		query.append(" MEM_TYPE)          ") ;
+		query.append(" VALUES             ") ;
+		query.append(" (               ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?,                 ") ;
+		query.append(" ?)                 ") ;
+		
+		PreparedStatement pstmt = conn.prepareStatement(query.toString());
+		
+		int i = 1;
+		
+		pstmt.setString(i++, member.getMem_id());
+		pstmt.setString(i++, member.getMem_pwd());
+		pstmt.setString(i++, member.getMem_name());
+		pstmt.setString(i++, member.getMem_phone());
+		pstmt.setString(i++, member.getMem_email());
+		pstmt.setString(i++, member.getMem_birth());
+		pstmt.setString(i++, member.getMem_zipcode());
+		pstmt.setString(i++, member.getMem_addr_master());
+		pstmt.setString(i++, member.getMem_addr_detail());
+		pstmt.setString(i++, member.getMem_type());
+		
+		int updCnt = pstmt.executeUpdate();
+		
+		return updCnt;
+	}
+	
+	public int updateMember(Connection conn, Member member) throws SQLException {
+		
+		StringBuffer query = new StringBuffer();
+		
+		query.append(" UPDATE tb_member SET   ") ;
+		query.append(" MEM_PWD = ?,           ") ;
+		query.append(" MEM_NAME = ?,          ") ;
+		query.append(" MEM_PHONE = ?,         ") ;
+		query.append(" MEM_EMAIL = ?,         ") ;
+		query.append(" MEM_BIRTH = ?,         ") ;
+		query.append(" MEM_ZIPCODE = ?,       ") ;
+		query.append(" MEM_ADDR_MASTER = ?,   ") ;
+		query.append(" MEM_ADDR_DETAIL = ?,   ") ;
+		query.append(" MEM_TYPE = ?           ") ;    
+		query.append(" WHERE MEM_SEQ_NO = ?   ") ;
+		
+		PreparedStatement pstmt = conn.prepareStatement(query.toString());
+		
+		int i = 1;
+		pstmt.setString(i++, member.getMem_pwd());
+		pstmt.setString(i++, member.getMem_name());
+		pstmt.setString(i++, member.getMem_phone());
+		pstmt.setString(i++, member.getMem_email());
+		pstmt.setString(i++, member.getMem_birth());
+		pstmt.setString(i++, member.getMem_zipcode());
+		pstmt.setString(i++, member.getMem_addr_master());
+		pstmt.setString(i++, member.getMem_addr_detail());
+		pstmt.setString(i++, member.getMem_type());
+		pstmt.setInt(i++, member.getMem_seq_no());
+		
+		int updCnt = pstmt.executeUpdate();
+		
+		return updCnt;	
+	}
+	
+	public int deleteMember(Connection conn, String seqNo) throws Exception {
+		StringBuffer query = new StringBuffer();
+		query.append("DELETE FROM tb_member WHERE MEM_SEQ_NO = ?");
+		PreparedStatement pstmt = conn.prepareStatement(query.toString());
+		pstmt.setString(1, seqNo);
+		int updCnt = pstmt.executeUpdate();
+		return updCnt;
 	}
 	
 }

@@ -48,8 +48,10 @@
 			</tr>
 			<tr>
 				<td colspan="2"> 
-				<input type="button" value="수정" class="btn btn-default" onclick="">
-				<input type="button" value="삭제" class="btn btn-default" onclick="">
+				<input type="button" value="수정" class="btn btn-default" 
+				onclick="location.href='memberForm.do?seqNo=${member.mem_seq_no}'">
+				<input type="button" value="삭제" class="btn btn-default"
+				onclick="location.href='memberDelete.do?seqNo=${member.mem_seq_no}'">
 				<input type="button" value="목록" class="btn btn-default" onclick="location.href='memberList.do'">
 				</td>
 			</tr>
