@@ -15,10 +15,14 @@ public class MemberDeleteController implements Controller {
 	@Override
 	public String process(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		String strSeqNo = req.getParameter("seqNo");
+		int seqNo = 0;
+		if(strSeqNo != null) {
+			seqNo = Integer.parseInt(strSeqNo);
+		}
 		boolean isError = false;
 		try {
 			MemberService memberServiceImple = MemberServiceImple.getInstance();
-			int updCnt = memberServiceImple.deleteMember(strSeqNo);
+			int updCnt = memberServiceImple.deleteMember(seqNo);
 			if(updCnt == 0) {
 				isError = true;
 			}

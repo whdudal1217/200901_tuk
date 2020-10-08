@@ -115,9 +115,15 @@ public class MemberDao {
 			query.append(" MEM_TYPE ") ;
 			query.append(" from tb_member") ;
 			query.append(" where 1=1") ; //전체목록을 조회할 수 있는 조건문
+			
 			if(condition != null && !condition.isEmpty()) {
 				if(condition.containsKey("mem_seq_no")) {
 					query.append("  AND mem_seq_no = ?");
+				}else if(condition.containsKey("memId")) {
+					query.append("  AND mem_id = ?");
+				}
+				if(condition.containsKey("memPwd")) {
+					query.append("  AND mem_pwd = ?");
 				}
 			}
 			
@@ -126,8 +132,13 @@ public class MemberDao {
 			int i = 1;
 			
 			if(condition != null && !condition.isEmpty()) {
-				if(condition.containsKey("mem_seq_no")){
-					pstmt.setInt(i++, (int) condition.get("mem_seq_no"));
+				if(condition.containsKey("mem_seq_no")){//키가 안 비어있으면
+					pstmt.setInt(i++, (int) condition.get("mem_seq_no"));//밸류를 pstmt에 바인딩
+				}else if(condition.containsKey("memId")) {
+					pstmt.setString(i++,(String)condition.get("memId"));
+				}
+				if(condition.containsKey("memPwd")) {
+					pstmt.setString(i++,(String)condition.get("memPwd"));
 				}
 			}
 			
@@ -236,11 +247,11 @@ public class MemberDao {
 		return updCnt;	
 	}
 	
-	public int deleteMember(Connection conn, String seqNo) throws Exception {
+	public int deleteMember(Connection conn, int seqNo) throws Exception {
 		StringBuffer query = new StringBuffer();
 		query.append("DELETE FROM tb_member WHERE MEM_SEQ_NO = ?");
 		PreparedStatement pstmt = conn.prepareStatement(query.toString());
-		pstmt.setString(1, seqNo);
+		pstmt.setInt(1, seqNo);
 		int updCnt = pstmt.executeUpdate();
 		return updCnt;
 	}

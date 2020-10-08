@@ -16,5 +16,5 @@ public interface MemberService {
 	//수정
 	public int updateMember(Member member)throws Exception;
 	//삭제
-	public int deleteMember(String seqNo)throws Exception;
+	public int deleteMember(int seqNo)throws Exception;
 }

@@ -38,6 +38,12 @@
 		</form>
 		<!-- /검색 -->
 		<p align="right">
+			<c:if test="${empty sessionScope.LOGIN_USER}">
+				<input type="button" value="로그인" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/login/loginForm.do'">				
+			</c:if>
+			<c:if test="${not empty sessionScope.LOGIN_USER}">
+				<input type="button" value="로그아웃" class="btn btn-default" onclick="location.href='${pageContext.request.contextPath}/login/logout.do'">				
+			</c:if>
 			<input type="button" value="회원가입" class="btn btn-default" onclick="location.href='memberForm.do'">
 		<table class="table table-bordered table-hover">
 			<thead>

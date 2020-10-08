@@ -7,6 +7,13 @@
 <title>memberView</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap.css">
+<script type="text/javascript">
+	function memberDelete(seqNo) {
+		if(confirm("정말로 삭제 하시겠습니까?")){
+			location.href='memberDelete.do?seqNo='+seqNo
+		}
+	}
+</script>
 </head>
 <body>
 	<div class="container">
@@ -51,7 +58,7 @@
 				<input type="button" value="수정" class="btn btn-default" 
 				onclick="location.href='memberForm.do?seqNo=${member.mem_seq_no}'">
 				<input type="button" value="삭제" class="btn btn-default"
-				onclick="location.href='memberDelete.do?seqNo=${member.mem_seq_no}'">
+				onclick="memberDelete(${member.mem_seq_no})">
 				<input type="button" value="목록" class="btn btn-default" onclick="location.href='memberList.do'">
 				</td>
 			</tr>

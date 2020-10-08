@@ -99,7 +99,7 @@ public class MemberServiceImple implements MemberService {
 	}
 
 	@Override
-	public int deleteMember(String seqNo) throws Exception {
+	public int deleteMember(int seqNo) throws Exception {
 		Connection conn = null;
 		int updCnt = 0;
 		
