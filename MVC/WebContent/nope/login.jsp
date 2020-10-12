@@ -42,7 +42,6 @@
 	
 	out.println("<script>");
 	if(message != null){
-		
 		out.println("alert('"+message+"');");
 		out.println("history.go(-1);");
 		
