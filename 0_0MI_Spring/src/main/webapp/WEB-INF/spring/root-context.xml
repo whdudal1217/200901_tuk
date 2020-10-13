@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- db설정 정보 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+	<!-- ↑↑ BasicDataSource dataSource = new BasicDataSource(); -->
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/jdbc_ex?serverTimezone=UTC&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;allowPublicRetrieval=true"/>
+		<property name="username" value="root"/>
+		<property name="password" value="0_0MI1217"/>
+	</bean>
+	
+	<!-- db 연결을 할 때 sql 실행과 관련된 모든 것을 가진 객체 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" /> <!-- 클래스 객체를 넘겨주는 경우는 레퍼런스 방법 -->
 		
+		<!-- 매퍼와 다오를 연결하는 마이바티스 사용을 위한 프로퍼티 2개 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property> <!-- calsspath: = src/main/resource를 말함 -->
+		<property name="mapperLocations" value="classpath:/Mapper/*Mapper.xml"></property>
+	</bean>
+	
+	<!-- 베이스 패키지 안에 있는 클래스들을 스캔 -->
+	<mybatis-spring:scan base-package="kr.co.spring.*.dao"/>
+	
 </beans>
