@@ -2,7 +2,77 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- MemberDao -->
 <mapper namespace="kr.co.spring.member.dao.MemberDao"> 
+
 	<select id="selectMemberTest" resultType="memberVo">
 		SELECT * FROM TB_MEMBER
 	</select>
+	
+	<!--  테이블의 전체 갯수 -->
+	<select id="selectMemberCount" parameterType="map" resultType="int">
+		SELECT count(*)
+		FROM
+		tb_member WHERE 1=1
+		<if test="searchWord != null and searchWord != ''">
+			<if test="searchType == 'id'">
+				AND MEM_ID = #{searchWord}
+			</if>
+			<if test="searchType == 'name'">
+				AND MEM_NAME LIKE concat('%',#{searchWord},'%')
+			</if>
+		</if>
+	</select>
+	
+	
+	<!-- 서브쿼리 위치에 따라 스칼라 쿼리(SELECT (SELECT) ), 인라인 뷰 (WHERE (SELECT)) -->	
+	<select id="selectMemberList" parameterType="map" resultType="memberVo">
+		SELECT A.*
+		FROM( SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, TB.*
+			  FROM ( SELECT mem_seq_no, mem_id, mem_name, mem_pwd, mem_birth, mem_phone, mem_email, mem_zipcode, mem_addr_master, mem_addr_detail
+			  		 FROM tb_member 
+			  		 WHERE 1=1 
+			  		 <if test="searchWord != null and searchWord != ''">
+						<if test="searchType == 'id'">
+							AND MEM_ID = #{searchWord}
+						</if>
+						<if test="searchType == 'name'">
+							AND MEM_NAME LIKE concat('%',#{searchWord},'%')
+						</if>
+					</if>
+			  		 ORDER BY mem_seq_no DESC)TB,(SELECT @ROWNUM := 0) R
+		) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	
+	<select id="selectMember" parameterType="map" resultType="memberVo" >
+		SELECT  MEM_SEQ_NO, 
+				MEM_ID,
+				MEM_PWD ,
+				MEM_NAME ,
+				MEM_PHONE ,
+				MEM_EMAIL ,
+				MEM_BIRTH ,
+				MEM_ZIPCODE ,
+				MEM_ADDR_MASTER ,
+				MEM_ADDR_DETAIL ,
+				MEM_TYPE 
+		FROM TB_MEMBER 
+		WHERE 1=1
+			<if test="mem_seq_no != null">
+				AND MEM_SEQ_NO = #{mem_seq_no}
+			</if>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>
