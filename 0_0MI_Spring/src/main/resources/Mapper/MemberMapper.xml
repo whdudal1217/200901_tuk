@@ -60,9 +60,45 @@
 			<if test="mem_seq_no != null">
 				AND MEM_SEQ_NO = #{mem_seq_no}
 			</if>
+			<if test="mem_id != null and mem_id != ''">
+				AND MEM_ID = #{mem_id}
+			</if>
 	</select>
 	
+	<insert id="insertMember" parameterType="memberVo">
+		INSERT INTO TB_MEMBER(
+				MEM_ID,
+				MEM_PWD ,
+				MEM_NAME ,
+				MEM_PHONE ,
+				MEM_EMAIL ,
+				MEM_BIRTH ,
+				MEM_ZIPCODE ,
+				MEM_ADDR_MASTER ,
+				MEM_ADDR_DETAIL) VALUES(
+				#{mem_id},
+				#{mem_pwd},
+				#{mem_name},
+				#{mem_phone},
+				#{mem_email},
+				#{mem_birth},
+				#{mem_zipcode},
+				#{mem_addr_master},
+				#{mem_addr_detail}) ;
+	</insert>
 	
+	<update id="updateMember" parameterType="memberVo">
+		UPDATE TB_MEMBER 
+		SET 
+		 MEM_PWD = #{mem_pwd}
+		,MEM_PHONE = #{mem_phone}
+		,MEM_EMAIL = #{mem_email}
+		,MEM_BIRTH = #{mem_birth}
+		,MEM_ZIPCODE = #{mem_zipcode}
+		,MEM_ADDR_MASTER = #{mem_addr_master}
+		,MEM_ADDR_DETAIL = #{mem_addr_detail}
+		WHERE MEM_SEQ_NO = #{mem_seq_no}
+	</update>
 	
 	
 	

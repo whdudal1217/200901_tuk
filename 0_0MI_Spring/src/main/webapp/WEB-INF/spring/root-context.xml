@@ -17,7 +17,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
 	<!-- ↑↑ BasicDataSource dataSource = new BasicDataSource(); -->
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3306/jdbc_ex?serverTimezone=UTC&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;allowPublicRetrieval=true"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/jdbc_ex?serverTimezone=UTC&amp;useSSL=false&amp;characterEncoding=UTF-8&amp;useUnicode=true&amp;allowPublicKeyRetrieval=true"/>
 		<property name="username" value="root"/>
 		<property name="password" value="0_0MI1217"/>
 	</bean>

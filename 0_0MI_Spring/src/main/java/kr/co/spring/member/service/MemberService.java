@@ -10,5 +10,7 @@ public interface MemberService {
 	public ArrayList<MemberVo> selectMemberTest() throws Exception;
 	public List<MemberVo> getMemberList(Map<String,Object> paramMap)throws Exception;
 	public int getMemberCount(Map<String, Object> paramMap)throws Exception;
-	public MemberVo getMember(Map<String, Object> paramMap)throws Exception; 
+	public MemberVo getMember(Map<String, Object> paramMap)throws Exception;
+	public int insertMember(MemberVo member)throws Exception;
+	public int updateMember(MemberVo member); 
 }

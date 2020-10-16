@@ -19,6 +19,10 @@ public interface MemberDao {
 	public MemberVo selectMember(Map<String, Object> paramMap)throws Exception;
 	
 	//회원정보등록
+	public int insertMember(MemberVo member);
+
+	public int updateMember(MemberVo member);
+	
 	//회원정보수정
 	//회원정보삭제
 	

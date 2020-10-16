@@ -44,4 +44,14 @@ public class MemberServiceImpl implements MemberService{
 		return memberDao.selectMember(paramMap);
 	}
 
+	@Override
+	public int insertMember(MemberVo member) throws Exception {
+		return memberDao.insertMember(member);
+	}
+
+	@Override
+	public int updateMember(MemberVo member) {		
+		return memberDao.updateMember(member);
+	}
+
 }

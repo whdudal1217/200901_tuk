@@ -14,8 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.spring.common.util.PagingUtil;
 import kr.co.spring.member.model.MemberVo;
@@ -71,7 +73,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "memberView")
 	public String memberView(@RequestParam(value = "seqNo", required = true)int SeqNo,
-							 @RequestParam(value = "currentPage", required = true)int currentPage, Model model)throws Exception {
+							 @RequestParam(value = "currentPage", required = true, defaultValue = "1")int currentPage, Model model)throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		if(Integer.toString(currentPage) == "undefined") {
 			currentPage = 1;
@@ -85,9 +87,102 @@ public class MemberController {
 		
 	}
 	@RequestMapping(value = "memberForm")
-	public String memberForm(@RequestParam(value = "seqNo", required = false, defaultValue = "0")int seqNo,
-			Model model) {
-		return veiw + "memberForm";
+	public ModelAndView memberForm(@RequestParam(value = "seqNo", required = false, defaultValue = "0")int seqNo,
+			Model model) throws Exception {
+		
+		MemberVo member = new MemberVo();
+		if(seqNo != 0) {
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("mem_seq_no", seqNo);
+			member = memberService.getMember(paramMap);		
+			System.out.println("paramMap엔 무엇이 들었을까요 : " + paramMap.get("mem_name"));
+			System.out.println("memVo의 id는 :" + member.getMem_id());
+		}
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("member",member);
+		mav.setViewName("/member/memberForm");
+		
+		return mav;
+	}
+	@RequestMapping(value = "memberExists", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> memberExists(@RequestParam(value = "mem_id", required = true)String mem_id) throws Exception {
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("mem_id", mem_id);
+		MemberVo memVo = memberService.getMember(paramMap);
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		if(memVo != null) {
+			resultMap.put("result", "true"); //사용중인 아이디
+		}else {
+			resultMap.put("result", "false"); //사용중이 아닌 아이디
+		}
+		return resultMap;
+	}
+	@RequestMapping(value = "memberInsert", method = RequestMethod.POST)
+	public String memberInsert(Model model, MemberVo member) throws Exception{
+		System.out.println("멤버인서트 컨트롤러");
+		System.out.println("MEM_id : " + member.getMem_id());
+		System.out.println("MEM_name : " + member.getMem_name());
+		// mem_id(Vo) = mem_id (.jsp) 뷰에서 보내는 데이터와 vo에 저장하는 데이터의 이름이 같으면 
+		boolean isError = false;
+		
+		try {
+			int updCnt = memberService.insertMember(member);
+			
+			if(updCnt == 0) {
+				isError = true;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		String viewPage = "/common/message";
+		String message = "정상가입되셨습니다";
+		if(isError) {
+			message = "회원등록에 실패했습니다";
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+		}else {
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+			model.addAttribute("locationURL", "/member/memberList");
+		}
+		return viewPage;
+	}
+	
+	@RequestMapping(value = "memberUpdate", method = RequestMethod.POST)
+	public String memberUpdate(Model model, MemberVo member) throws Exception{
+		System.out.println("멤버업데이트 컨트롤러");
+		System.out.println("MEM_id : " + member.getMem_id());
+		System.out.println("MEM_name : " + member.getMem_name());
+		// mem_id(Vo) = mem_id (.jsp) 뷰에서 보내는 데이터와 vo에 저장하는 데이터의 이름이 같으면 
+		boolean isError = false;
+		
+		try {
+			int updCnt = memberService.updateMember(member);
+			
+			if(updCnt == 0) {
+				isError = true;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		String viewPage = "";
+		String message = "";
+		viewPage = "redirect:/member/memberView?seqNo="+ member.getMem_seq_no();
+		message = "수정 되었습니다";
+		if(isError) {
+			message = "수정 실패했습니다";
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+		}else {
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+			viewPage = "/common/message";
+		}
+		return viewPage;
 	}
 	
 	
