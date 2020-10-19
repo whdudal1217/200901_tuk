@@ -1,16 +1,15 @@
 package kr.co.spring.member.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +28,10 @@ public class MemberController {
 	String veiw = "/member/";
 	@Autowired
 	MemberService memberService;
+	
+	@Inject
+	PasswordEncoder passwordEncoder; 
+	//이거랑 같은 이름을 가진 bean 객체를 주입
 	
 	@RequestMapping(value = "memberTest")
 	public String memberTest(Model model) throws Exception {
@@ -55,6 +58,7 @@ public class MemberController {
 			paramMap.put("searchWord", searchWord);
 		}
 		
+		System.out.println("searchWord : " + searchWord);
 		//전체회원수
 		totalCount = memberService.getMemberCount(paramMap);
 		
@@ -128,6 +132,10 @@ public class MemberController {
 		boolean isError = false;
 		
 		try {
+			String enPwd = passwordEncoder.encode(member.getMem_pwd());
+			member.setMem_pwd(enPwd);
+			System.out.println("암호화를 진행한 비밀번호 : " + enPwd);
+			
 			int updCnt = memberService.insertMember(member);
 			
 			if(updCnt == 0) {
@@ -153,13 +161,14 @@ public class MemberController {
 	
 	@RequestMapping(value = "memberUpdate", method = RequestMethod.POST)
 	public String memberUpdate(Model model, MemberVo member) throws Exception{
-		System.out.println("멤버업데이트 컨트롤러");
-		System.out.println("MEM_id : " + member.getMem_id());
-		System.out.println("MEM_name : " + member.getMem_name());
 		// mem_id(Vo) = mem_id (.jsp) 뷰에서 보내는 데이터와 vo에 저장하는 데이터의 이름이 같으면 
 		boolean isError = false;
 		
 		try {
+			String enPwd = passwordEncoder.encode(member.getMem_pwd());
+			member.setMem_pwd(enPwd);
+			System.out.println("암호화를 진행한 비밀번호 : " + enPwd);
+
 			int updCnt = memberService.updateMember(member);
 			
 			if(updCnt == 0) {
@@ -185,7 +194,35 @@ public class MemberController {
 		return viewPage;
 	}
 	
-	
+	@RequestMapping(value = "memberDelete")
+	public String memberDelete(Model model, @RequestParam(value = "seqNo", required = true)int seqNo) throws Exception{
+		boolean isError = false;
+		
+		try {
+			int updCnt = memberService.deleteMember(seqNo);
+			
+			if(updCnt == 0) {
+				isError = true;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		String viewPage = "";
+		String message = "";
+		viewPage = "/common/message";
+		message = "삭제되었습니다";
+		if(isError) {
+			message = "삭제실패했습니다";
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+		}else {
+			model.addAttribute("isError", isError);
+			model.addAttribute("message", message);
+			model.addAttribute("locationURL", "/member/memberList");
+		}
+		return viewPage;
+	}
 }
 
 

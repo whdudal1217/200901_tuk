@@ -22,6 +22,8 @@ public interface MemberDao {
 	public int insertMember(MemberVo member);
 
 	public int updateMember(MemberVo member);
+
+	public int deleteMember(int seqNo);
 	
 	//회원정보수정
 	//회원정보삭제

@@ -100,7 +100,10 @@
 		WHERE MEM_SEQ_NO = #{mem_seq_no}
 	</update>
 	
-	
+	<delete id="deleteMember" parameterType="int">
+		DELETE FROM TB_MEMBER
+		WHERE MEM_SEQ_NO = #{seqNo}
+	</delete>
 	
 	
 	

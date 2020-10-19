@@ -12,5 +12,6 @@ public interface MemberService {
 	public int getMemberCount(Map<String, Object> paramMap)throws Exception;
 	public MemberVo getMember(Map<String, Object> paramMap)throws Exception;
 	public int insertMember(MemberVo member)throws Exception;
-	public int updateMember(MemberVo member); 
+	public int updateMember(MemberVo member);
+	public int deleteMember(int seqNo); 
 }

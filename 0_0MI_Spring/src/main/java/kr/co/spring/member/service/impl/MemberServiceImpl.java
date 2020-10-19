@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kr.co.spring.member.dao.MemberDao;
@@ -52,6 +55,11 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int updateMember(MemberVo member) {		
 		return memberDao.updateMember(member);
+	}
+
+	@Override
+	public int deleteMember(int seqNo) {
+		return memberDao.deleteMember(seqNo);
 	}
 
 }

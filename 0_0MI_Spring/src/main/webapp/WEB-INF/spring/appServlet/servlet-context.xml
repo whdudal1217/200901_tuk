@@ -27,6 +27,16 @@
 	<!-- 자바 코드 외부에서 객체를 만든다 : 의존성을 외부에서 내부로 주입 : di(의존성 주입) -->
 	<context:component-scan base-package="kr.co.spring" />
 	
-	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/**"/>
+			<exclude-mapping path="/member/memberForm"/>
+			<exclude-mapping path="/member/memberInsert"/>
+			<exclude-mapping path="/login/login"/>
+			<exclude-mapping path="/login/logOut"/>
+			<exclude-mapping path="/login/loginForm"/>
+			<beans:bean class="kr.co.spring.web.interceptor.LoginCheckInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>
