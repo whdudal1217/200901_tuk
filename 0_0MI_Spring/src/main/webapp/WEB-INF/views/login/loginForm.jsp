@@ -58,8 +58,12 @@
 					<td><input type="password" name="mem_pwd" id="mem_pwd" size="20"></td>
 				</tr>
 				<tr>
-					<td colspan="2">
+					<td>
 						<input type="button" class="btn btn-default" value="로그인" onclick="login();">
+					</td>
+					<td>
+						<input type="button" class="btn btn-default" value="회원가입" 
+						onclick="location.href='${pageContext.request.contextPath}/member/memberForm'">
 					</td>
 				</tr>
 			</table>

@@ -39,4 +39,12 @@
 		</interceptor>
 	</interceptors>
 	
+	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions" value="classpath:tiles.xml" />
+	</beans:bean>
+	
 </beans:beans>

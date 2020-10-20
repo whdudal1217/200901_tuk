@@ -54,7 +54,6 @@
 			</P>
 		</form>
 		<!-- /검색 -->
-		<input type="button" class="btn btn-default" onclick="location.href = 'memberForm'" value="회원가입">
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>

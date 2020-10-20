@@ -53,7 +53,7 @@ public class MemberController {
 		List<MemberVo> memberList = null;
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		
-		if(!StringUtils.isBlank(searchType) && !StringUtils.isBlank(searchType)) {
+		if(!StringUtils.isBlank(searchType) && !StringUtils.isBlank(searchWord)) {
 			paramMap.put("searchType", searchType);
 			paramMap.put("searchWord", searchWord);
 		}
