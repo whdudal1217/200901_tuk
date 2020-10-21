@@ -14,12 +14,5 @@
 			${LOGIN_USER.mem_name}님 환영합니다
 		</div>
 	</c:if>
-	<c:if test="${sessionScope.LOGIN_USER == null}">
-		<div align="right">
-			<input type="button" class="btn btn-default" 
-			onclick="location.href = location.href='${pageContext.request.contextPath}/member/memberForm'"
-			value="회원가입">
-		</div>
-	</c:if>
 </body>
 </html>

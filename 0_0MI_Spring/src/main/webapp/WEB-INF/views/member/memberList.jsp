@@ -32,6 +32,7 @@
 </head>
 <body>
 	<div class="container">
+		<h2 align="center"> 회원 목록 </h2>
 		<!-- 검색 -->
 		<form method="post" name="searchForm">
 			<input type="hidden" name="currentPage" value="${param.currentPage}"> 
@@ -87,7 +88,6 @@
 				</c:if>
 			</tbody>
 		</table>
-		
 		<div style="text-align: center;">
 			<ul class="pagination">
 				${pagingUtil.pageHtml}

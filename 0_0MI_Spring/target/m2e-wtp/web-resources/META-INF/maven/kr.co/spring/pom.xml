@@ -15,7 +15,13 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<!-- scope : 클래스 경로에 등록되는 타이밍 -->
-	<dependencies>
+	<dependencies>	
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+	        <artifactId>spring-tx</artifactId>
+	        <version>3.1.1.RELEASE</version>
+		</dependency>
 				
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
 		<dependency>

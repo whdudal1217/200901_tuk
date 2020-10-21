@@ -11,4 +11,8 @@ public interface BoardService {
 	
 	//게시글 목록조회
 	public List<BoardVo> getBoardList(Map<String,Object> map) throws Exception;
+	
+	//게시글 한 건 조회
+	public BoardVo getBoard(int bo_seq_no) throws Exception;
+	
 }

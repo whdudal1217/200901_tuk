@@ -9,7 +9,22 @@
 		where 
 			bo_del_yn = 'N'
 			and bo_type = #{bo_type}
-	</select>
+			 <if test="searchWord != null and searchWord != ''">
+				<if test="searchType == '01'"> <!-- 제목 -->
+					AND bo_title LIKE concat('%',#{searchWord},'%')
+				</if>
+				<if test="searchType == '02'"> <!-- 내용 -->
+					AND bo_content LIKE concat('%',#{searchWord},'%')
+				</if>
+				<if test="searchType == '03'"> <!-- 제목 + 내용 -->
+					AND bo_title LIKE concat('%',#{searchWord},'%') 
+					or bo_content LIKE concat('%', #{searchWord} , '%')				
+				</if>
+				<if test="searchType == '04'"> <!-- 작성자 -->
+							AND bo_writer_name = #{searchWord}
+				</if>
+			</if>
+</select>
 	<select id="selectBoardList" parameterType="map" resultType="boardVo">
 		SELECT A.*
 		FROM( SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, TB.*
@@ -20,7 +35,7 @@
 						 ,bo_content  
 						 ,bo_writer   
 						 ,bo_writer_name
-						 ,hit_cnt  
+						 ,bo_hit_cnt  
 						 ,bo_open_yn
 						 ,bo_del_yn  
 						 ,reg_date  
@@ -31,11 +46,53 @@
 					 	tb_board     
 			  		 WHERE 
 				  		 1=1 
-				  		 and bo_del_yn = 'N',
+				  		 <if test="searchWord != null and searchWord != ''">
+							<if test="searchType == '01'"> <!-- 제목 -->
+								AND bo_title LIKE concat('%',#{searchWord},'%')
+							</if>
+							<if test="searchType == '02'"> <!-- 내용 -->
+								AND bo_content LIKE concat('%',#{searchWord},'%')
+							</if>
+							<if test="searchType == '03'"> <!-- 제목 + 내용 -->
+								AND bo_title LIKE concat('%',#{searchWord},'%') 
+								or bo_content LIKE concat('%', #{searchWord} , '%')				
+							</if>
+							<if test="searchType == '04'"> <!-- 작성자 -->
+								AND bo_writer_name = #{searchWord}
+							</if>
+						</if>
+				  		 and bo_del_yn = 'N'
 				  		 and bo_type = #{bo_type}
 			  		 ORDER BY bo_seq_no DESC)TB,
 			  		 (SELECT @ROWNUM := 0) R
 					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
+	<select id="selectBoard" parameterType="int" resultType="boardVo">
+		SELECT 
+		 bo_seq_no 
+		,bo_type 
+		,bo_title 
+		,bo_content 
+		,bo_writer
+		,bo_writer_name 
+		,bo_hit_cnt
+		,bo_open_yn 
+		,bo_del_yn
+		,reg_date 
+		,reg_user 
+		,upd_date 
+		,upd_user
+		FROM 
+		tb_board
+		WHERE BO_SEQ_NO = #{bo_seq_no}
+	</select>
+	
+	<update id="updateHitCnt" parameterType="int">
+		UPDATE tb_board SET bo_hit_cnt = bo_hit_cnt + 1 
+		WHERE bo_seq_no = #{bo_seq_no)
+	</update>
+	
 </mapper>
+
+

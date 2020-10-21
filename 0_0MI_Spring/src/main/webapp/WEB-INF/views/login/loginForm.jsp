@@ -12,6 +12,7 @@
 
 
 	$(document).ready(function(){
+		alert("로그인 해주세요!")
 		$("#mem_id").focus();
 		$("#mem_pwd").keydown(function(key) { //키를 눌렀을때 keydown
 			if(key.keyCode == 13){ //엔터키를 눌렀을때

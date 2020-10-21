@@ -12,7 +12,7 @@
 		<ul class="nav navbar-nav">
 			<li > <a href="${pageContext.request.contextPath}/" > Home </a> </li>
 			<li ><a href="${pageContext.request.contextPath}/member/memberList" > 회원관리 </a></li>
-			<li ><a href="#">게시판</a></li>
+			<li ><a href="${pageContext.request.contextPath}/board/boardList?bo_type=BBS">게시판</a></li>
 			<li ><a href="#">자료실</a></li>
 			<li>
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -28,6 +28,9 @@
 		<c:if test="${sessionScope.LOGIN_USER == null}">
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="${pageContext.request.contextPath}/login/loginForm">LOGIN</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="${pageContext.request.contextPath}/member/memberForm">JOIN</a></li>
 			</ul>
 		</c:if>
 		<c:if test="${sessionScope.LOGIN_USER != null}">

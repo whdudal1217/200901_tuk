@@ -21,52 +21,48 @@ public class PagingUtil {
 		this(currentPage, totalCount, 20, 5);
 	}
 
-	public PagingUtil(int currentPage, int totalCount, int pageSize, int pageCount) {
-		this.currentPage = currentPage;
-		this.totalCount = totalCount;
-		this.pageSize = pageSize;
-		this.pageCount = pageCount;
-	
-		//1.총페이지 수 구하기
-		//totalPage = (int) Math.ceil(totalPage / (double) pageSize);
-		totalPage = (totalCount - 1) / pageSize + 1; 
-		
-		//2.시작/종료 게시물 번호
-		startRow = (currentPage -1 ) * pageSize + 1; 		
-		
-		endRow = currentPage * pageSize; 
-		
-		if(endRow > totalCount) { //끝 페이지 번호가 총 게시물 수를 넘어가면
-			endRow = totalCount;
-		}
-		
-		//3.시작/종료 페이지 번호
-		startPage = ((currentPage-1)/pageCount*pageCount)+1;
-		endPage = startPage + pageCount - 1;
-		if(endPage > totalCount) {
-			endPage = totalPage;
-		}
-		
-		//페이지를 jsp에서 보일 수 있게 해주는 부분
-		//이전
-		if(currentPage > pageCount) { //한 화면에 보여지는 페이지보다 현재 페이지가 더 크면
-			pageHtml.append("<li> <a href='#' onclick='doSearch("+(startPage-1)+")'> 이전 </a> </li>");
-		}
-		//페이지 네비게이터 생성
-		for(int i = startPage; i<= endPage; i++) {
-			if(currentPage == i) {
-				pageHtml.append("<li class='active'><a href='#'>"+i+"</a></li>");
-			}else {
-				pageHtml.append("<li><a href='#' onclick='doSearch("+i+")'>"+i+"</a></li>");
-			}
-		}
-	
-		//다음 
-		if(totalPage - startPage >= pageCount) {
-			pageHtml.append("<li><a href='#' onclick='doSearch("+(endPage+1)+")'> 다음 </a></li>");
-		}
-	}
-
+	   public PagingUtil(int currentPage, int totalCount, int pageSize, int pageCount) {
+		      this.currentPage = currentPage;
+		      this.totalCount = totalCount;
+		      this.pageSize = pageSize;
+		      this.pageCount = pageCount;
+		      
+		      totalPage = (totalCount -1)/pageSize+1;
+		      
+		      startRow = (currentPage - 1) * pageSize +1;
+		      
+		      endRow=currentPage * pageSize;
+		      
+		      if(endRow>totalCount) {
+		         endRow = totalCount;
+		      }
+		      
+		      startPage=((currentPage -1) / pageCount * pageCount)+1;
+		      endPage = startPage + pageCount - 1;
+		      
+		      if(endPage > totalPage) {
+		         endPage = totalPage;
+		      }
+		      
+		      
+		      if(currentPage>pageCount) {
+		         pageHtml.append("<li><a href='#' onclick='doSearch(" + (startPage - 1) + ")'>이전</a></li>");
+		      }
+		      
+		      //페이지 네비게이터
+		      for(int i= startPage; i<=endPage; i++) {
+		         if(currentPage ==i) {
+		            pageHtml.append("<li class='active'><a href='#'>" + i + "</a></li>");
+		         }else {
+		            pageHtml.append("<li><a href='#' onclick='doSearch(" + i + ")'>" + i + "</a></li>");
+		         }
+		      }
+		      
+		      //다음 버튼
+		      if(totalPage - startPage >= pageCount) {
+		         pageHtml.append("<li><a href='#' onclick='doSearch(" + (endPage +1) + ")'>다음</a></li>");
+		      }
+		   }
 	public int getCurrentPage() {
 		return currentPage;
 	}
