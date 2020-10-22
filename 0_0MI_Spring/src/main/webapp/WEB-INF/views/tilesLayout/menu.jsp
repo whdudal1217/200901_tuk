@@ -24,6 +24,9 @@
 					<li><a href="#">drop2</a></li>
 				</ul>
 			</li>
+			<c:if test="${sessionScope.LOGIN_USER.mem_type == 'A' }"> 
+				<li><a href="${pageContext.request.contextPath}/member/memberList" >${sessionScope.LOGIN_USER.mem_id} 관리자님 전용 공지사항</a></li>
+			</c:if>
 		</ul>
 		<c:if test="${sessionScope.LOGIN_USER == null}">
 			<ul class="nav navbar-nav navbar-right">

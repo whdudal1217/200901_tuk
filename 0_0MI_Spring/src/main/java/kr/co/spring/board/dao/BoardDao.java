@@ -17,4 +17,14 @@ public interface BoardDao {
 	
 	//게시글 조회수 증가
 	public int updateHitCnt(int bo_seq_no) throws Exception;
+	
+	//게시글 등록
+	public int insertBoard(BoardVo board)throws Exception;
+	
+	//게시글 수정
+	public int updateBoard(BoardVo board)throws Exception;
+	
+	//게시글 삭제
+	public int deleteBoard(BoardVo board) throws Exception;
+	
 }

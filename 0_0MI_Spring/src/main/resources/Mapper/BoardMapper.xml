@@ -47,6 +47,11 @@
 			  		 WHERE 
 				  		 1=1 
 				  		 <if test="searchWord != null and searchWord != ''">
+				  		 	<if test="searchType =='' ">
+				  		 		AND bo_title LIKE concat('%' ,#{searchWord}, '%')
+				  		 		AND bo_content LIKE concat('%' ,#{searchWord}, '%')
+				  		 		AND bo_writer_name LIKE concat('%', #{serchWord}, '%')
+				  		 	</if>
 							<if test="searchType == '01'"> <!-- 제목 -->
 								AND bo_title LIKE concat('%',#{searchWord},'%')
 							</if>
@@ -90,9 +95,71 @@
 	
 	<update id="updateHitCnt" parameterType="int">
 		UPDATE tb_board SET bo_hit_cnt = bo_hit_cnt + 1 
-		WHERE bo_seq_no = #{bo_seq_no)
+		WHERE bo_seq_no = #{bo_seq_no}
+	</update>
+	
+	<insert id="insertBoard" parameterType="boardVo">
+		INSERT INTO tb_board 
+		( 
+		bo_type 
+		,bo_title 
+		,bo_content 
+		,bo_writer
+		,bo_writer_name 
+		,bo_hit_cnt
+		,bo_open_yn 
+		,bo_del_yn
+		,reg_date 
+		,reg_user 
+		) VALUES 
+		(
+		#{bo_type }
+		,#{bo_title }
+		,#{bo_content }
+		,#{bo_writer}
+		,#{bo_writer_name }
+		,0
+		,COALESCE(#{bo_open_yn},'N') <!--  oracle : nvl() -->
+		,'N'
+		,now() <!-- oracle : sysdate() -->
+		,#{bo_writer }
+		)
+	</insert>
+	
+	<update id="updateBoard" parameterType="boardVo" >
+		UPDATE tb_board SET
+			 bo_title = #{bo_title}
+			,bo_content = #{bo_content}
+			,bo_open_yn = #{bo_open_yn}
+			,upd_date = now()
+			,upd_user = #{upd_user}
+		WHERE 
+			bo_seq_no = #{bo_seq_no}	 
+	</update>
+	
+	<update id="deleteBoard" parameterType="boardVo" >
+		UPDATE tb_board SET
+			bo_del_yn = 'Y'
+			,upd_date = now()
+			,upd_user = #{upd_user}
+		WHERE 
+			bo_seq_no = #{bo_seq_no}	 
 	</update>
 	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

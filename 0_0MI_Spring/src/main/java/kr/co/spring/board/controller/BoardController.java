@@ -5,17 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import javax.print.DocFlavor.STRING;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.ui.Model;import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.spring.board.model.BoardVo;
 import kr.co.spring.board.service.BoardService;
 import kr.co.spring.common.util.PagingUtil;
+import kr.co.spring.member.model.MemberVo;
 
 @Controller
 @RequestMapping(value = "/board/")
@@ -58,7 +60,7 @@ public class BoardController {
 		return "/board/boardList";
 	}
 	
-	@RequestMapping("boardView")
+	@RequestMapping(value = "boardView")
 	public String boardView(@RequestParam(value = "boSeqNo", required = true)int bo_seq_no, Model model) throws Exception {
 		BoardVo board = boardService.getBoard(bo_seq_no);
 		System.out.println("board.getBo_open_yn()"+board.getBo_open_yn());
@@ -66,4 +68,145 @@ public class BoardController {
 		return "/board/boardView";
 	}
 	
+	@RequestMapping(value="boardForm")
+	public String boardForm( @RequestParam(value = "boSeqNo", required = false, defaultValue = "0") int bo_seq_no,
+			HttpSession session, Model model
+			) throws Exception {
+		
+		BoardVo boardVo = new BoardVo();
+		if(bo_seq_no != 0) {
+			boardVo = boardService.getBoard(bo_seq_no);
+		}else {
+			MemberVo member = (MemberVo) session.getAttribute("LOGIN_USER");
+			boardVo.setBo_writer(member.getMem_id());
+			boardVo.setBo_writer_name(member.getMem_name());
+		}
+		
+		model.addAttribute("board",boardVo);
+		
+		return "/board/boardForm";
+		
+	}
+	
+	@RequestMapping(value = "boardInsert")
+	public String boardInsert( BoardVo board , Model model) throws Exception{
+		boolean isError = false;
+		try {
+			int updCnt = boardService.insertBoard(board);
+			if(updCnt == 0) {
+				isError = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		String viewPage = "redirect:/board/boardList?bo_type=BBS";
+		String message = "글이 등록되었습니다";
+		if(isError) {
+			message = "글 등록에 실패했습니다.";
+			viewPage = "common/meessage";
+			model.addAttribute("message", message);
+			model.addAttribute("isError", isError);
+		}
+		return viewPage;
+	}
+	
+	@RequestMapping(value = "boardUpdate")
+	public String boardUpdaet(BoardVo boardVo ,HttpSession session, Model model) throws Exception {
+		boolean isError = false;
+		try {
+			MemberVo member = (MemberVo) session.getAttribute("LOGIN_USER");
+			boardVo.setUpd_user(member.getMem_id());
+			int updCnt = boardService.updateBoard(boardVo);
+			if(updCnt ==0) {
+				isError = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		
+		String viewPage = "";
+		String message = "";
+		String locationURL ="";
+		
+		viewPage="redirect:/board/boardView?boSeqNo="+boardVo.getBo_seq_no();
+		message="수정되었습니다.";
+		if(isError) {
+			viewPage="common/message";
+			message="글 수정에 실패했습니다.";
+			model.addAttribute("message",message);
+			model.addAttribute("isError",isError);
+		}else {
+			viewPage="common/message";
+			locationURL="/board/boardView?boSeqNo="+boardVo.getBo_seq_no();
+			model.addAttribute("message",message);
+			model.addAttribute("isError",isError);
+			model.addAttribute("locationURL",locationURL);
+			message ="수정되었습니당!";
+		}
+		return viewPage;
+	}
+	
+	@RequestMapping(value = "boardDelete")
+	public String boardDelete(@RequestParam(value = "boSeqNo", required = true)int seqNo,Model model, HttpSession session ) {
+		boolean isError = false;
+		try {
+			MemberVo memVo = (MemberVo) session.getAttribute("LOGIN_USER");
+			BoardVo boardVo = new BoardVo();
+			boardVo.setBo_seq_no(seqNo);
+			boardVo.setUpd_user(memVo.getMem_id());
+			
+			int delCnt = boardService.deleteBoard(boardVo);
+			
+			if(delCnt == 0) {
+				isError = true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			isError = true;
+		}
+		String viewPage = "";
+		String message = "";
+		String locationURL ="";
+		
+		if(isError) {
+			viewPage = "common/message";
+			message = "삭제 실패했습니다.";
+			model.addAttribute("isError", isError);
+			model.addAttribute("viewPage",viewPage);
+			model.addAttribute("message",message);
+		}else {
+			viewPage = "common/message";
+			message = "삭제 성공했습니다.";
+			locationURL ="/board/boardList?bo_type=BBS";
+			model.addAttribute("isError", isError);
+			model.addAttribute("locationURL",locationURL);
+			model.addAttribute("message",message);
+		}
+		
+		return viewPage;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

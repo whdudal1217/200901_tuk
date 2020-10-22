@@ -23,7 +23,7 @@
 	
 	
 	function login(){
-		alert("로그인중")
+		
 		var frm = document.loginForm;
 		if(!validate()){
 			return false;

@@ -17,11 +17,7 @@
 	<!-- scope : 클래스 경로에 등록되는 타이밍 -->
 	<dependencies>	
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
-		<dependency>
-		    <groupId>org.springframework</groupId>
-	        <artifactId>spring-tx</artifactId>
-	        <version>3.1.1.RELEASE</version>
-		</dependency>
+		
 				
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-extras -->
 		<dependency>
@@ -231,6 +227,11 @@
 		    <version>4.1.0.RELEASE</version>
 		</dependency>
 		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+	        <artifactId>spring-tx</artifactId>
+	        <version>3.1.1.RELEASE</version>
+		</dependency>
 		
 	</dependencies>
 	<build>

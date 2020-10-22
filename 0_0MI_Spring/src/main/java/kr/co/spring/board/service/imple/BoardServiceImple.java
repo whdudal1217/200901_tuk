@@ -37,4 +37,19 @@ public class BoardServiceImple implements BoardService{
 		return boardDao.selectBoard(bo_seq_no);
 	}
 
+	@Override
+	public int insertBoard(BoardVo board) throws Exception {
+		return boardDao.insertBoard(board);
+	}
+
+	@Override
+	public int updateBoard(BoardVo board) throws Exception {
+		return boardDao.updateBoard(board);
+	}
+
+	@Override
+	public int deleteBoard(BoardVo board) throws Exception {		
+		return boardDao.deleteBoard(board);
+	}
+	
 }

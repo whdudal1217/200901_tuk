@@ -20,12 +20,14 @@
 	
 	function doSearch(page) {
 		var frm = document.searchForm;
+		
 		if(frm.searchType.value != "" && frm.searchWord.value == "" ){
 			alert('검색어를 입력해주세요');
 			return false;
 		}else if (frm.searchType.value == '00' ) {
 			alert("검색조건을 선택해주세요")
 		}
+		
 		frm.currentPage.value = page;
 		frm.action = "boardList";
 		frm.submit();
@@ -37,14 +39,14 @@
 	<div class="container">
 			<h2 align="center"> 게시글 목록 </h2>
 			<p align="right"> 
-				<input type="button" value="글쓰기" class="btn btn-primary" onclick="">
+				<input type="button" value="글쓰기" class="btn btn-primary" onclick="location.href='boardForm'">
 			</p>
 			<form name="searchForm" method="post">
 				<p align="center">
 					<input type="hidden" name="currentPage" value="${param.currentPage}">
 					<input type="hidden" name="bo_type" value="BBS"> <!-- 일반 게시판 : BBS -->
 					<select name="searchType">
-						<option value="00"> 전체 </option>
+						<option value=""> 전체 </option>
 						<option ${param.searchType == '01' ? 'selected' : '' } value="01">제목</option>
 						<option ${param.searchType == '02' ? 'selected' : '' } value="02">내용</option>
 						<option ${param.searchType == '03' ? 'selected' : '' } value="03">제목 + 내용</option>
