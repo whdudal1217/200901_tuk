@@ -69,6 +69,7 @@ public class loginController{
 		model.addAttribute("message", message);
 		return "common/message";
 	}
+	
 	@RequestMapping("logOut")
 	public String logOut(HttpSession session){
 		session.invalidate();

@@ -73,7 +73,7 @@
 					) A WHERE A.ROWNUM BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
-	<select id="selectBoard" parameterType="int" resultType="boardVo">
+	<select id="selectBoard" parameterType="map" resultType="boardVo">
 		SELECT 
 		 bo_seq_no 
 		,bo_type 
@@ -91,6 +91,9 @@
 		FROM 
 		tb_board
 		WHERE BO_SEQ_NO = #{bo_seq_no}
+		<if test="bo_type != null ">
+			AND BO_TYPE = #{bo_type}
+		</if>
 	</select>
 	
 	<update id="updateHitCnt" parameterType="int">
@@ -113,16 +116,16 @@
 		,reg_user 
 		) VALUES 
 		(
-		#{bo_type }
-		,#{bo_title }
-		,#{bo_content }
+		#{bo_type}
+		,#{bo_title}
+		,#{bo_content}
 		,#{bo_writer}
-		,#{bo_writer_name }
+		,#{bo_writer_name}
 		,0
 		,COALESCE(#{bo_open_yn},'N') <!--  oracle : nvl() -->
 		,'N'
 		,now() <!-- oracle : sysdate() -->
-		,#{bo_writer }
+		,#{bo_writer}
 		)
 	</insert>
 	

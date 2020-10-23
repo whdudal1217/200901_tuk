@@ -25,8 +25,6 @@
 <div class="container">
 	<h2 align="center"> 게시글 상세보기 </h2>
 	<table class="table">
-		<c:choose>
-			<c:when test="${board.bo_open_yn =='Y' ||(not empty sessionScope.LOGIN_USER && sessionScope.LOGIN_USER.mem_id == board.bo_writer)}">
 			<tr>
 				<td>제목</td>
 				<td>${board.bo_title}</td>
@@ -59,26 +57,14 @@
 				<td>내용</td>
 				<td style="white-space: pre;">${board.bo_content}</td>
 			</tr>
-			</c:when>
-			<c:otherwise>
-				<tr>
-					<td colspan="2">비밀글입니다</td>
-				</tr>
-			</c:otherwise>
-		</c:choose>
 	</table>
 	<p align="center">
 		<c:if test="${not empty sessionScope.LOGIN_USER || sessionScope.LOGIN_USER.mem_id == board.bo_writer}">
-		<c:if test="${board.bo_type == 'BBS'}">
-			<input type="button" value="게시글 수정" class="btn btn-primary" id="btnEdit">
-			<input type="button" value="게시글 삭제" class="btn btn-primary" id="btnDel">
-			<input type="button" value="게시글 목록" class="btn btn-primary" onclick="location.href='boardList?bo_type=BBS'">
-		</c:if>
-		<c:if test="${board.bo_type == 'Notice'}">
-			<input type="button" value="공지사항 수정" class="btn btn-primary" onclick="location.href='noticeForm?bo_type=Notice&boSeqNo=${board.bo_seq_no}'">
-			<input type="button" value="공지사항 삭제" class="btn btn-primary" onclick="location.href='noticeDelete?boSeqNo=${board.bo_seq_no}'">
-			<input type="button" value="공지사항 목록" class="btn btn-primary" onclick="location.href='noticeList?bo_type=Notice'">
-		</c:if>
+			<c:if test="${board.bo_type == 'Notice' && sessionScope.LOGIN_USER.mem_type == 'A' }">
+				<input type="button" value="수정" class="btn btn-primary" onclick="location.href='noticeForm?bo_type=Notice&boSeqNo=${board.bo_seq_no}'">
+				<input type="button" value="삭제" class="btn btn-primary" onclick="location.href='noticeDelete?bo_type=Notice&boSeqNo=${board.bo_seq_no}'">
+			</c:if>
+				<input type="button" value="목록" class="btn btn-primary" onclick="location.href='noticeList?bo_type=Notice'">
 		</c:if>
 	</p>
 </div>

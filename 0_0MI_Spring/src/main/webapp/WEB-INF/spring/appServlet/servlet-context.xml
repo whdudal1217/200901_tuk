@@ -31,11 +31,12 @@
 		<interceptor>
 			<mapping path="/member/**"/>
 			<mapping path="/board/**"/>
-			<exclude-mapping path="/member/memberForm"/>
-			<exclude-mapping path="/member/memberInsert"/>
 			<exclude-mapping path="/login/login"/>
 			<exclude-mapping path="/login/logOut"/>
 			<exclude-mapping path="/login/loginForm"/>
+			<exclude-mapping path="/member/memberForm"/>
+			<exclude-mapping path="/member/memberInsert"/>
+			<exclude-mapping path="/member/memberExists"/>
 			<beans:bean class="kr.co.spring.web.interceptor.LoginCheckInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

@@ -109,9 +109,10 @@ public class MemberController {
 		
 		return mav;
 	}
-	@RequestMapping(value = "memberExists", method = RequestMethod.POST)
+	@RequestMapping(value = "memberExists")
 	@ResponseBody
 	public Map<String,Object> memberExists(@RequestParam(value = "mem_id", required = true)String mem_id) throws Exception {
+		System.out.println("memberExists");
 		Map<String,Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mem_id", mem_id);
 		MemberVo memVo = memberService.getMember(paramMap);

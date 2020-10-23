@@ -16,6 +16,10 @@ public class BoardVo {
 	private String upd_date;
 	private String upd_user;
 
+	
+	private int rownum;
+	
+
 	public int getBo_seq_no() {
 		return bo_seq_no;
 	}
@@ -119,5 +123,17 @@ public class BoardVo {
 	public void setUpd_user(String upd_user) {
 		this.upd_user = upd_user;
 	}
+
+	public int getRownum() {
+		return rownum;
+	}
+
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+
+	
+
+	
 
 }

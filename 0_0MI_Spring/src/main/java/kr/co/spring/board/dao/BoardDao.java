@@ -13,7 +13,7 @@ public interface BoardDao {
 	public List<BoardVo> selectBoardList(Map<String,Object> map) throws Exception;
 	
 	//게시글 한 건 조회
-	public BoardVo selectBoard(int bo_seq_no) throws Exception;
+	public BoardVo selectBoard(Map<String,Object> map) throws Exception;
 	
 	//게시글 조회수 증가
 	public int updateHitCnt(int bo_seq_no) throws Exception;

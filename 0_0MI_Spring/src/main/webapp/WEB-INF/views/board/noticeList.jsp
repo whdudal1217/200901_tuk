@@ -37,9 +37,11 @@
 </head>
 <body>
 	<div class="container">
-			<h2 align="center"> 게시글 목록 </h2>
+			<h2 align="center"> 공지사항 목록 </h2>
 			<p align="right"> 
-					<input type="button" value="게시판글쓰기" class="btn btn-primary" onclick="location.href='boardForm'">
+				<c:if test="${sessionScope.LOGIN_USER.mem_type=='A' }">
+					<input type="button" value="공지사항글쓰기" class="btn btn-primary" onclick="location.href='noticeForm'">
+				</c:if>
 			</p>
 			<form name="searchForm" method="post">
 				<p align="center">
@@ -81,7 +83,7 @@
 						<c:forEach var="boardList" items="${boardList}">
 						<tr >
 							<td>${boardList.rownum}</td>
-							<td><a href="boardView?boSeqNo=${boardList.bo_seq_no}&boType=${boardList.bo_type}">${boardList.bo_title}</a></td>
+							<td><a href="noticeView?boSeqNo=${boardList.bo_seq_no}&boType=${boardList.bo_type}">${boardList.bo_title}</a></td>
 							<td>${boardList.bo_writer_name}</td>
 							<td>${boardList.reg_date}</td>
 							<td>${boardList.bo_hit_cnt}</td>

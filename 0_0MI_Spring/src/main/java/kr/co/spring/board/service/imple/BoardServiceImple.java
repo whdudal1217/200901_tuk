@@ -32,9 +32,11 @@ public class BoardServiceImple implements BoardService{
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
-	public BoardVo getBoard(int bo_seq_no) throws Exception {
-		boardDao.updateHitCnt(bo_seq_no);
-		return boardDao.selectBoard(bo_seq_no);
+	public BoardVo getBoard(Map<String, Object> paramMap) throws Exception {
+		BoardVo boardVo = new BoardVo();
+		boardVo.setBo_seq_no((int) paramMap.get("bo_seq_no"));
+		boardDao.updateHitCnt(boardVo.getBo_seq_no());
+		return boardDao.selectBoard(paramMap);
 	}
 
 	@Override

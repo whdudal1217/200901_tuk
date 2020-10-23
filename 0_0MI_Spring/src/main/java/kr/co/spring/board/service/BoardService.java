@@ -13,7 +13,7 @@ public interface BoardService {
 	public List<BoardVo> getBoardList(Map<String,Object> map) throws Exception;
 	
 	//게시글 한 건 조회
-	public BoardVo getBoard(int bo_seq_no) throws Exception;
+	public BoardVo getBoard(Map<String, Object> paramMap) throws Exception;
 	
 	//게시글 입력
 	public int insertBoard(BoardVo board) throws Exception;
@@ -23,4 +23,5 @@ public interface BoardService {
 	
 	//게시글 삭제
 	public int deleteBoard(BoardVo board)throws Exception;
+
 }
