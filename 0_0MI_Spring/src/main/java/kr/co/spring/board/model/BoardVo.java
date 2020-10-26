@@ -1,5 +1,9 @@
 package kr.co.spring.board.model;
 
+import java.util.List;
+
+import kr.co.spring.file.model.FileItem;
+
 public class BoardVo {
 
 	private int bo_seq_no;
@@ -15,6 +19,8 @@ public class BoardVo {
 	private String reg_user;
 	private String upd_date;
 	private String upd_user;
+	
+	private List<FileItem> fileList;
 
 	
 	private int rownum;
@@ -130,6 +136,14 @@ public class BoardVo {
 
 	public void setRownum(int rownum) {
 		this.rownum = rownum;
+	}
+
+	public List<FileItem> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<FileItem> fileList) {
+		this.fileList = fileList;
 	}
 
 	

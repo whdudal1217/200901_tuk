@@ -9,7 +9,7 @@
 
 <script type="text/javascript">
 
-	$(document).ready(function(){
+	$(document).ready(function(){	
 		
 		$('#bo_title').focus();
 		
@@ -28,10 +28,62 @@
 			},
 			submitHandler : function(frm){
 				//유효성체크 후 실행되는 부분
-				doSubmit();
+				if(!checkFiles()){
+					return false;
+				}else{
+					doSubmit();					
+				}
 			}
 			
 		});
+		
+		$frm = $("#boardForm");
+		//파일추가
+		$(".btn-new-file", $frm).click(function () {
+			$("#fileList").append(
+				'<hr>'+
+				'<div>'+
+					'<input name="uploadFiles" id="uploadFiles" type="file" multiple="multiple" />'+
+					'<button type="button" class="btn btn-primary btn-xs btn-delete-file"> 삭제 </button>' +
+				'</div>'
+			);
+		});
+		//파일삭제
+		$('#fileList').on("click", ".btn-delete-file", function() {
+			$(this).parent().remove();
+		});
+		
+		
+		function checkFiles(){
+			var regex = new RegExp("(.*?)\.(exe|sh|alz|zip)$"); //정규식, 업로드 불가능하게 RegExp -jquery함수
+			var maxSize = 10485760; //10 MB, 파일의 최대 사이즈
+			var files = $("input[name = 'uploadFiles']")[0].files;
+			for(var i=0; i<files.length; i++){
+				var fileName = files[i].name;
+				var fileSize = files[i].size;
+				var ext = fileName.split(".").pop().toLowerCase(); // .아래로 전부 추출 후 -> pop 꺼내서 -> 소문자로 /
+				console.log("file Name : " + fileName);
+				console.log("file Size : " + fileSize);
+				console.log("file 확장자 : " + ext);
+				
+				if(fileSize >= maxSize){
+					alert("대용량 파일(10mb 이상)은 업로드 할 수 없습니다. ");
+				}
+				
+				if(regex.test(fileName)){
+					alert("해당 확장자는 업로드 불가능 합니다.");
+					return false;
+				}
+				
+				//특정 확장자만 업로드 할 수 있게
+				/* if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1 ){ //inArray(배열, [값1,값2,값3]) -> 배열에 값1~값3까지의 데이터가 있으면 1을 반환
+					alert("'gif','png','jpg','jpeg' 확장자만 업로드 할 수 있습니다.");
+					return false;
+				} */
+			}
+			return true;
+		}
+		
 	});
 	
 	function doSubmit(){
@@ -48,14 +100,16 @@
 	}
 	
 	
+	
+	
 </script>
 
 </head>
 <body>
 	<div class="container">
 		<h2 align="center"> 게시글 등록 </h2>
-		<form name="boardForm" id="boardForm" method="post">
-			<input type="hidden" name="bo_type" id="bo_type" value="BBS">
+		<form name="boardForm" id="boardForm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="bo_type" id="bo_type" value="BBS" />
 			<input type="hidden" name="bo_seq_no" id="bo_seq_no" value="${board.bo_seq_no}">
 			<table class="table">
 				<tr>
@@ -76,6 +130,20 @@
 					<td>
 						<input type="checkbox" name="bo_open_yn" id="bo_open_yn" value="Y" ${board.bo_open_yn == 'N' ? '' : 'checked'}/>
 						&nbsp;&nbsp;&nbsp;(체크하면 비공개)
+					</td>
+				</tr>
+				<tr>
+					<td>첨부파일</td>
+					<td> 
+						<p>
+							<button type="button" class="btn btn-primary btn-xs btn-new-file"> 추가 </button>
+								<div id="fileList">
+									<div>
+										<input name="uploadFiles" id="uploadFiles" type="file" multiple="multiple" />
+										<button type="button" class="btn btn-primary btn-xs btn-delete-file"> 삭제 </button> 								
+									</div>
+								</div>
+						</p> 
 					</td>
 				</tr>
 				<tr>

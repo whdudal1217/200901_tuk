@@ -101,7 +101,17 @@
 		WHERE bo_seq_no = #{bo_seq_no}
 	</update>
 	
-	<insert id="insertBoard" parameterType="boardVo">
+	<insert id="insertBoard" parameterType="boardVo" useGeneratedKeys="true" keyProperty="bo_seq_no">
+	<!-- useGeneratedKeys="true" -> 자동적으로 증가되는 값을 다른 곳에서도 쓸 수 있게 true로
+	keyProperty="bo_seq_no" -> 어떤 값을 가져오거나 넘겨줄 때? -->
+		<selectKey keyProperty="bo_seq_no" resultType="int" order="BEFORE">
+			<!-- order="BEFORE" -> 아래 쿼리가 실행되기 전에 -->
+			select 
+				case count(*) when 0 then 1
+				else max(bo_seq_no) + 1 end as bo_seq_no
+			from tb_board
+		</selectKey>
+	
 		INSERT INTO tb_board 
 		( 
 		bo_type 

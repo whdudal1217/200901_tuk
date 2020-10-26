@@ -56,6 +56,23 @@
 				<td> ${board.bo_open_yn == 'Y' ? '공개' : '비공개' } </td>
 			</tr>
 			<tr>
+				<td>첨부파일</td>
+				
+				<td>
+					<c:if test="${board.fileList != null }">
+						<c:forEach items="${board.fileList}" var="fileItem">
+							<br/>
+							파일명 : <a href="#">${fileItem.file_name}</a><br/>
+							파일크기 : ${fileItem.file_fancy_size}<br/>
+						</c:forEach>
+					</c:if>
+					<c:if test="${board.fileList == null}">
+						첨부파일이 없습니다!
+					</c:if>
+				</td>
+			
+			</tr>
+			<tr>
 				<td>내용</td>
 				<td style="white-space: pre;">${board.bo_content}</td>
 			</tr>

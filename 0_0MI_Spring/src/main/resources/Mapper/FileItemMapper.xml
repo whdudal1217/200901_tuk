@@ -3,11 +3,59 @@
 <!-- MemberDao -->
 <mapper namespace="kr.co.spring.file.dao.FilteDao"> 
 
-	<select id="selectFileItemList"></select>
+	<select id="selectFileItemList" parameterType="map" resultType="fileItem">
+		SELECT
+		file_seq_no
+		,ref_seq_no 
+		,biz_type 
+		,file_path 
+		,file_name 
+		,file_save_name 
+		,file_size 
+		,file_fancy_size
+		,file_down_cnt 
+		,reg_date 
+		,reg_user 
+		,upd_date 
+		,upd_user 
+		FROM
+		tb_file_item
+		WHERE
+			ref_seq_no = #{ref_seq_no}
+			and biz_type = #{biz_type}
+	</select>
 	
 	<select id="selectFileItem"></select>
 	
-	<insert id="insertFileItem"></insert>
+	<insert id="insertFileItem" parameterType="fileItem">
+		INSERT INTO tb_file_item (
+		ref_seq_no 
+		,biz_type 
+		,file_path 
+		,file_name 
+		,file_save_name 
+		,file_size 
+		,file_fancy_size
+		,file_down_cnt 
+		,reg_date 
+		,reg_user 
+		,upd_date 
+		,upd_user
+		) VALUES (
+		#{ref_seq_no }
+		,#{biz_type }
+		,#{file_path }
+		,#{file_name }
+		,#{file_save_name }
+		,#{file_size }
+		,#{file_fancy_size}
+		,#{file_down_cnt }
+		,now()
+		,#{reg_user }
+		,now()
+		,#{upd_user}
+		)
+	</insert>
 	
 	<delete id="deleteFileItem"></delete>
 </mapper>
