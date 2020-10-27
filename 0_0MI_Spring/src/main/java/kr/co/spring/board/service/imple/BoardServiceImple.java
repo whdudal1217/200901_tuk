@@ -30,6 +30,7 @@ public class BoardServiceImple implements BoardService{
 	
 	@Autowired
 	FileUtils fileUtils;
+
 	
 	@Override
 	public int getBoardCount(Map<String, Object> map) throws Exception {
@@ -73,8 +74,30 @@ public class BoardServiceImple implements BoardService{
 		return updCnt;
 	}
 
+	@Transactional
 	@Override
-	public int updateBoard(BoardVo board) throws Exception {
+	public int updateBoard(BoardVo board, MultipartHttpServletRequest mpReq) throws Exception {
+		String[] delFileSeq = board.getDelFileSeq();
+		
+		try {
+			if(delFileSeq != null) {
+				for(int i = 0; i < delFileSeq.length; i++) {
+					Map<String, Object> paramMap = new HashMap<String, Object>();
+					paramMap.put("delFileSeq", delFileSeq[i]);
+					fileItemDao.deldetFileItem(paramMap);
+				}
+			}
+			
+			//
+			List<FileItem> fileList = fileUtils.uploadFiles(board, mpReq);
+			for(FileItem fileItem : fileList) {
+				fileItemDao.insertFileItem(fileItem);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		return boardDao.updateBoard(board);
 	}
 

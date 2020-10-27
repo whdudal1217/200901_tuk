@@ -25,7 +25,26 @@
 			and biz_type = #{biz_type}
 	</select>
 	
-	<select id="selectFileItem"></select>
+	<select id="selectFileItem" parameterType="map" resultType="fileItem">
+		SELECT
+			 file_seq_no
+			,ref_seq_no 
+			,biz_type 
+			,file_path 
+			,file_name 
+			,file_save_name 
+			,file_size 
+			,file_fancy_size
+			,file_down_cnt 
+			,reg_date 
+			,reg_user 
+			,upd_date 
+			,upd_user 
+		FROM
+			tb_file_item
+		WHERE 
+			file_seq_no = #{file_seq_no}
+	</select>
 	
 	<insert id="insertFileItem" parameterType="fileItem">
 		INSERT INTO tb_file_item (
@@ -57,5 +76,9 @@
 		)
 	</insert>
 	
-	<delete id="deleteFileItem"></delete>
+	<delete id="deldetFileItem" parameterType="map">
+		DELETE 
+		FROM tb_file_item
+		WHERE file_seq_no = #{delFileSeq}
+	</delete>
 </mapper>

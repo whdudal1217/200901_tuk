@@ -84,6 +84,12 @@
 			return true;
 		}
 		
+		//파일삭제
+		$(".btn-delete-exist",).click(function () {
+			//innerHtml 의 제이쿼리버전 ""가 바깥 ''가 안
+			$(this).parent().html("<input type='hidden' name='delFileSeq' value='"+ $(this).data("file_seq_no")+ "'>")
+		});
+		// $(this).data("file_seq_no") -> 클릭한 나한테 있는 data-이름(data-file_seq_no) 의 밸류를 가져옴
 	});
 	
 	function doSubmit(){
@@ -135,6 +141,13 @@
 				<tr>
 					<td>첨부파일</td>
 					<td> 
+						<!-- 수정 시 업로드 된 파일 목록 -->
+						<c:forEach items="#{board.fileList}" var="fileItem">
+							<div>
+								${fileItem.file_name} (${fileItem.file_fancy_size})
+								<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no=${fileItem.file_seq_no}>x</button>
+							</div> 
+						</c:forEach>
 						<p>
 							<button type="button" class="btn btn-primary btn-xs btn-new-file"> 추가 </button>
 								<div id="fileList">

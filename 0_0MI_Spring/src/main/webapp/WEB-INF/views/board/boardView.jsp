@@ -62,7 +62,7 @@
 					<c:if test="${board.fileList != null }">
 						<c:forEach items="${board.fileList}" var="fileItem">
 							<br/>
-							파일명 : <a href="#">${fileItem.file_name}</a><br/>
+							파일명 : <a href="${pageContext.request.contextPath}/common/downLoad?file_seq_no=${fileItem.file_seq_no}">${fileItem.file_name}</a><br/>
 							파일크기 : ${fileItem.file_fancy_size}<br/>
 						</c:forEach>
 					</c:if>

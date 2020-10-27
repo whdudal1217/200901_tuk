@@ -123,12 +123,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "boardUpdate")
-	public String boardUpdaet(BoardVo boardVo ,HttpSession session, Model model) throws Exception {
+	public String boardUpdaet(BoardVo boardVo ,HttpSession session, Model model, MultipartHttpServletRequest mReq) throws Exception {
 		boolean isError = false;
 		try {
 			MemberVo member = (MemberVo) session.getAttribute("LOGIN_USER");
 			boardVo.setUpd_user(member.getMem_id());
-			int updCnt = boardService.updateBoard(boardVo);
+			int updCnt = boardService.updateBoard(boardVo,mReq);
 			if(updCnt ==0) {
 				isError = true;
 			}
@@ -294,12 +294,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "noticeUpdate")
-	public String noticeUpdaet(BoardVo boardVo ,HttpSession session, Model model) throws Exception {
+	public String noticeUpdaet(BoardVo boardVo ,HttpSession session, Model model, MultipartHttpServletRequest mReq) throws Exception {
 		boolean isError = false;
 		try {
 			MemberVo member = (MemberVo) session.getAttribute("LOGIN_USER");
 			boardVo.setUpd_user(member.getMem_id());
-			int updCnt = boardService.updateBoard(boardVo);
+			int updCnt = boardService.updateBoard(boardVo,mReq);
 			if(updCnt ==0) {
 				isError = true;
 			}
