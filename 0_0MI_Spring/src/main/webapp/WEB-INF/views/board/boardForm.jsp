@@ -43,8 +43,8 @@
 			$("#fileList").append(
 				'<hr>'+
 				'<div>'+
-					'<input name="uploadFiles" id="uploadFiles" type="file" multiple="multiple" />'+
-					'<button type="button" class="btn btn-primary btn-xs btn-delete-file"> 삭제 </button>' +
+					'<input name="uploadFiles" id="uploadFiles" type="file" multiple="multiple" style="display: inline-block;" />'+
+					'<button type="button" class="btn btn-primary btn-xs btn-delete-file" style="margin: 4px;"> x </button>' +
 				'</div>'
 			);
 		});
@@ -144,8 +144,9 @@
 						<!-- 수정 시 업로드 된 파일 목록 -->
 						<c:forEach items="#{board.fileList}" var="fileItem">
 							<div>
-								${fileItem.file_name} (${fileItem.file_fancy_size})
-								<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no=${fileItem.file_seq_no}>x</button>
+								<p>${fileItem.file_name} (${fileItem.file_fancy_size})</p>
+								<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no=${fileItem.file_seq_no}
+								style="display: inline-block;">x</button>
 							</div> 
 						</c:forEach>
 						<p>

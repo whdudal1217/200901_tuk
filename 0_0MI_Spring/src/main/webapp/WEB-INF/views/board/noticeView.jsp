@@ -50,8 +50,19 @@
 				<td>${board.bo_hit_cnt}</td>
 			</tr>
 			<tr>
-				<td>공개여부</td>
-				<td> ${board.bo_open_yn == 'Y' ? '공개' : '비공개' } </td>
+				<td>첨부파일</td>
+				<td>
+					<c:if test="${not empty  board.fileList}">
+						<c:forEach items="${board.fileList}" var="fileItem">
+							<br/>
+							파일명 : <a href="${pageContext.request.contextPath}/common/downLoad?file_seq_no=${fileItem.file_seq_no}">${fileItem.file_name}</a><br/>
+							파일크기 : ${fileItem.file_fancy_size}<br/>
+						</c:forEach>
+					</c:if>
+					<c:if test="${empty board.fileList}">
+						첨부파일이 없습니다!
+					</c:if>
+				</td>
 			</tr>
 			<tr>
 				<td>내용</td>

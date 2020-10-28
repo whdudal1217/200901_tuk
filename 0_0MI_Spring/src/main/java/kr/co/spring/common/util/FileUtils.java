@@ -40,7 +40,8 @@ public class FileUtils {
 				fileItem.setFile_fancy_size(getFancySize(parts.getSize())); //파일사이즈지정
 				fileItem.setFile_size(parts.getSize()); 
 				fileItem.setFile_name(parts.getOriginalFilename());//파일의 실제 이름
-				fileItem.setFile_save_name(UUID.randomUUID().toString()+"_"+parts.getOriginalFilename());//실제 db에 저장 될 땐 랜덤으로 아이디를 만들어 저장 
+				fileItem.setFile_save_name(UUID.randomUUID().toString()+"_"+parts.getOriginalFilename());//실제 db에 저장 될 땐 랜덤으로 아이디를 만들어 저장
+				fileItem.setFile_path(board.getBo_type()+"/"+dateFormat.format(new Date())); //파일이 지정된 경로
 				fileItem.setFile_path(board.getBo_type()+"/"+dateFormat.format(new Date())); //파일이 지정된 경로
 				
 				//실제 파일 저장

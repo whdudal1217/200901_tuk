@@ -271,10 +271,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "noticeInsert")
-	public String noticeInsert( BoardVo board , Model model) throws Exception{
+	public String noticeInsert( BoardVo board , Model model , MultipartHttpServletRequest mReq) throws Exception{
 		boolean isError = false;
 		try {
-			int updCnt = boardService.insertBoard(board, null);
+			int updCnt = boardService.insertBoard(board, mReq);
 			if(updCnt == 0) {
 				isError = true;
 			}
