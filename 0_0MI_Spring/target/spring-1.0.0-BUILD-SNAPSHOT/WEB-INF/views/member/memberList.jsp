@@ -32,6 +32,7 @@
 </head>
 <body>
 	<div class="container">
+		<h2 align="center"> 회원 목록 </h2>
 		<!-- 검색 -->
 		<form method="post" name="searchForm">
 			<input type="hidden" name="currentPage" value="${param.currentPage}"> 
@@ -54,7 +55,6 @@
 			</P>
 		</form>
 		<!-- /검색 -->
-		<input type="button" class="btn btn-default" onclick="location.href = 'memberForm'" value="회원가입">
 		<table class="table table-bordered table-hover">
 			<thead>
 				<tr>
@@ -88,7 +88,6 @@
 				</c:if>
 			</tbody>
 		</table>
-		
 		<div style="text-align: center;">
 			<ul class="pagination">
 				${pagingUtil.pageHtml}

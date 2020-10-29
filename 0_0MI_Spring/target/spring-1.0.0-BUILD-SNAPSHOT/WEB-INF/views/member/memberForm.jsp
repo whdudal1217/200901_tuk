@@ -35,17 +35,12 @@
 				success : function(data, status) {
 					duplicateCheck = data.result;
 					if (data.result == "true") {
-
 						$("#lbl_result").text("해당 아이디는 사용중 입니다.");
 						duplicateCheck = false;
-
 					} else {
-
 						$("#lbl_result").text("해당 아이디는 사용 가능합니다.");
 						duplicateCheck = true;
-
 					}
-
 				},
 				error : function(error) {
 					console.log(error);
@@ -58,11 +53,10 @@
 	function validate() {
 		var frm = document.memberForm;
 
-		/* if (!duplicateCheck) {
+		if (!duplicateCheck) {
 			alert("아이디 중복을 체큭 해주세요.");
 			return false;
-		} */
-
+		}
 		if (frm.mem_name.value == "") {
 			alert("이름을 입력해주세요.");
 			frm.mem_name.focus();
@@ -108,10 +102,15 @@
 
 	function doSubmit(type) {
 		
-		var frm = document.memberForm;
+		if(type ==2){
+			duplicateCheck = true;
+		}
+		
+		
 		if (!validate()) {
 			return false;
 		}
+		var frm = document.memberForm;
 		if (type == 1) {
 			frm.mem_seq_no.value=0;
 			frm.action = "memberInsert";

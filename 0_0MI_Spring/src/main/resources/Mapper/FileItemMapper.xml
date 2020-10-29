@@ -18,6 +18,7 @@
 		,reg_user 
 		,upd_date 
 		,upd_user 
+		,thumb_save_name
 		FROM
 		tb_file_item
 		WHERE
@@ -40,6 +41,7 @@
 			,reg_user 
 			,upd_date 
 			,upd_user 
+			,thumb_save_name
 		FROM
 			tb_file_item
 		WHERE 
@@ -60,6 +62,7 @@
 		,reg_user 
 		,upd_date 
 		,upd_user
+		,thumb_save_name
 		) VALUES (
 		#{ref_seq_no }
 		,#{biz_type }
@@ -73,6 +76,7 @@
 		,#{reg_user }
 		,now()
 		,#{upd_user}
+		,#{thumb_save_name}
 		)
 	</insert>
 	

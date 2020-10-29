@@ -142,7 +142,7 @@
 					<td>첨부파일</td>
 					<td> 
 						<!-- 수정 시 업로드 된 파일 목록 -->
-						<c:forEach items="#{board.fileList}" var="fileItem">
+						<c:forEach items="${board.fileList}" var="fileItem">
 							<div>
 								<p>${fileItem.file_name} (${fileItem.file_fancy_size})</p>
 								<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no=${fileItem.file_seq_no}

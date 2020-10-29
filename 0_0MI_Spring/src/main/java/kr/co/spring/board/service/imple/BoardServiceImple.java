@@ -105,5 +105,10 @@ public class BoardServiceImple implements BoardService{
 	public int deleteBoard(BoardVo board) throws Exception {		
 		return boardDao.deleteBoard(board);
 	}
+
+	@Override
+	public List<BoardVo> getGallertList(Map<String, Object> map) throws Exception {
+		return boardDao.selectGalleryList(map);
+	}
 	
 }

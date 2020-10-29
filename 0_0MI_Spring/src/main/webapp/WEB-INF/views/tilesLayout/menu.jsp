@@ -18,6 +18,7 @@
 				<li ><a href="${pageContext.request.contextPath}/member/memberList" > 회원관리 </a></li>			
 			</c:if>
 			<li ><a href="${pageContext.request.contextPath}/board/boardList?bo_type=BBS">게시판</a></li>
+			<li ><a href="${pageContext.request.contextPath}/board/galleryList?bo_type=GALLERY">갤러리</a></li>
 			<li ><a href="#">자료실</a></li>
 			<li>
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -19,6 +19,7 @@ public class BoardVo {
 	private String reg_user;
 	private String upd_date;
 	private String upd_user;
+	private String file_seq_no;
 	
 	private List<FileItem> fileList;
 	private String[] delFileSeq;
@@ -153,6 +154,14 @@ public class BoardVo {
 
 	public void setDelFileSeq(String[] delFileSeq) {
 		this.delFileSeq = delFileSeq;
+	}
+
+	public String getFile_seq_no() {
+		return file_seq_no;
+	}
+
+	public void setFile_seq_no(String file_seq_no) {
+		this.file_seq_no = file_seq_no;
 	}
 
 	

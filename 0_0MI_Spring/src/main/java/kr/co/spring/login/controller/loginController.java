@@ -38,6 +38,8 @@ public class loginController{
 							@RequestParam(value="mem_pwd", required = true) String mem_pwd,
 							Model model, HttpSession sessoin ) throws Exception{
 		
+		System.out.println("loginController : loginForm");
+		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("mem_id", mem_id);
 		MemberVo resultMmeber = memberService.getMember(paramMap);

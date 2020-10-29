@@ -27,6 +27,26 @@
 	<!-- 자바 코드 외부에서 객체를 만든다 : 의존성을 외부에서 내부로 주입 : di(의존성 주입) -->
 	<context:component-scan base-package="kr.co.spring" />
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/**"/>
+			<mapping path="/board/**"/>
+			<exclude-mapping path="/login/login"/>
+			<exclude-mapping path="/login/logOut"/>
+			<exclude-mapping path="/login/loginForm"/>
+			<exclude-mapping path="/member/memberForm"/>
+			<exclude-mapping path="/member/memberInsert"/>
+			<exclude-mapping path="/member/memberExists"/>
+			<beans:bean class="kr.co.spring.web.interceptor.LoginCheckInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 	
+	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
+	
+	<beans:bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+		<beans:property name="definitions" value="classpath:tiles.xml" />
+	</beans:bean>
 	
 </beans:beans>

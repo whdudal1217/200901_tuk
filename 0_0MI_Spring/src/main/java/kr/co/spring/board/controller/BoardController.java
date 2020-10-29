@@ -370,6 +370,48 @@ public class BoardController {
 		
 		return viewPage;
 	}
+	/*
+	 * @RequestMapping("galleryList") public String galleryList(
+	 * 
+	 * @RequestParam(value = "searchType", required = false, defaultValue = "")
+	 * String searchType,
+	 * 
+	 * @RequestParam(value = "searchWord", required = false, defaultValue = "")
+	 * String searchWord,
+	 * 
+	 * @RequestParam(value = "currentPage", required = false, defaultValue = "1")
+	 * int currentPage,
+	 * 
+	 * @RequestParam(value = "pageSize", required = false, defaultValue = "10") int
+	 * pageSize,
+	 * 
+	 * @RequestParam(value = "bo_type" , required = true) String bo_type, Model
+	 * model ) throws Exception{
+	 * 
+	 * int pageCount = 5; int totalCount = 0;
+	 * 
+	 * List<BoardVo> boardList = null; Map<String, Object> paramMap = new
+	 * HashMap<String, Object>();
+	 * 
+	 * 
+	 * if(!StringUtils.isBlank(searchType) && !StringUtils.isBlank(searchWord)) {
+	 * paramMap.put("searchType", searchType); paramMap.put("searchWord",
+	 * searchWord); } paramMap.put("bo_type", bo_type);
+	 * 
+	 * totalCount = boardService.getBoardCount(paramMap);
+	 * 
+	 * PagingUtil pagingUtil = new PagingUtil(currentPage, totalCount, pageSize,
+	 * pageCount);
+	 * 
+	 * paramMap.put("startRow",pagingUtil.getStartRow()+"");
+	 * paramMap.put("endRow",pagingUtil.getEndRow()+"");
+	 * System.out.println("pagingUtil.getEndRow() : "+pagingUtil.getEndRow());
+	 * boardList = boardService.getBoardList(paramMap);
+	 * model.addAttribute("boardList", boardList); model.addAttribute("pagingUtil",
+	 * pagingUtil);
+	 * 
+	 * return "/board/boardList"; }
+	 */
 	
 	
 }
