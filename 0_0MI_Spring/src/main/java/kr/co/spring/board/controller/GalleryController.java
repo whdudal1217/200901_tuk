@@ -1,5 +1,6 @@
 package kr.co.spring.board.controller;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -167,6 +168,13 @@ public class GalleryController {
 			BoardVo boardVo = new BoardVo();
 			boardVo.setBo_seq_no(seqNo);
 			boardVo.setUpd_user(memVo.getMem_id());
+			
+			File file = new File("파일을 경로");
+			if(file.exists()) {
+				file.delete();
+			}else {
+				//파일 업는 경우
+			}
 			
 			int delCnt = boardService.deleteBoard(boardVo);
 			

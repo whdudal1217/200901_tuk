@@ -57,7 +57,14 @@
 		function checkFiles(){
 			var regex = new RegExp("(.*?)\.(exe|sh|alz|zip)$"); //정규식, 업로드 불가능하게 RegExp -jquery함수
 			var maxSize = 10485760; //10 MB, 파일의 최대 사이즈
+			
+			//이미지를 하나 이상 첨부했는지 확인
+			if( (!$("input[name='uploadFiles']").length ||! $("input[name='uploadFiles']").val()) && !$("#files").length){
+				alert(" 이미지를 하나 이상 업로드 해주세요 ");
+				return false;
+			}
 			var files = $("input[name = 'uploadFiles']")[0].files;
+			
 			for(var i=0; i<files.length; i++){
 				var fileName = files[i].name;
 				var fileSize = files[i].size;
@@ -106,14 +113,12 @@
 	}
 	
 	
-	
-	
 </script>
 
 </head>
 <body>
 	<div class="container">
-		<h2 align="center"> 게시글 등록 </h2>
+		<h2 align="center"> 갤러리 등록 </h2>
 		<form name="galleryForm" id="galleryForm" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="bo_type" id="bo_type" value="GALLERY" />
 			<input type="hidden" name="bo_seq_no" id="bo_seq_no" value="${gallery.bo_seq_no}">
@@ -144,7 +149,12 @@
 						<!-- 수정 시 업로드 된 파일 목록 -->
 						<c:forEach items="${gallery.fileList}" var="fileItem">
 							<div>
-								<p>${fileItem.file_name} (${fileItem.file_fancy_size})</p>
+								<c:if test="${empty fileItem.file_seq_no}">									
+									<p></p>
+								</c:if>
+								<c:if test="${not empty fileItem.file_seq_no}">
+									<p id="files">${fileItem.file_name} (${fileItem.file_fancy_size})</p>
+								</c:if>
 								<button type="button" class="btn btn-danger btn-xs btn-delete-exist" data-file_seq_no=${fileItem.file_seq_no}
 								style="display: inline-block;">x</button>
 							</div> 

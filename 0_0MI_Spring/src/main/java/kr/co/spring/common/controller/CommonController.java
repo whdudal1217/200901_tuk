@@ -68,6 +68,7 @@ public class CommonController {
 		
 		InputStream input = null;
 		ResponseEntity<byte[]> entity = null; //이미지를 바이트 배열로 읽어와서 화면에 보여주기 위해
+		System.out.println("display");
 		
 		try {
 			Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -96,6 +97,7 @@ public class CommonController {
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}finally {
 			input.close();
 		}

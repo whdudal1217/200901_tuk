@@ -37,7 +37,7 @@
 </head>
 <body>
 	<div class="container">
-			<h2 align="center"> 게시글 목록 </h2>
+			<h2 align="center"> 갤러리 목록 </h2>
 			<p align="right"> 
 					<input type="button" value="게시판글쓰기" class="btn btn-primary" onclick="location.href='galleryForm'">
 			</p>
@@ -75,7 +75,7 @@
 							<td>${boardList.rownum}</td>
 							<td> 
 								<a href="galleryView?boSeqNo=${boardList.bo_seq_no}&boType=${boardList.bo_type}">
-									<img class="img-thumbnail" src="${pageContex.request.contextPath}/common/display?file_seq_no=${boardList.file_seq_no}"/> 
+									<img class="img-thumbnail" src="${pageContext.request.contextPath}/common/display?file_seq_no=${boardList.file_seq_no}" style="width: 150px; height: 150px;"/> 
 								</a>
 							</td>
 							<td>${boardList.reg_date}</td>
